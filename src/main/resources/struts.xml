@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<include file="struts-common.xml" />
+	<constant name="struts.devMode" value="true" />
+
+	<package name="main" extends="struts-default">
+
+		<action name="login_action" method="login"
+			class="com.deere.action.LoginAction">
+			<result name="login"> login.jsp </result>
+			<result name="success">dataimport.jsp</result>
+			<result name="reurl" type="redirect">${methodName}</result>
+		</action>
+
+		<action name="logout_action" method="logout"
+			class="com.deere.action.LoginAction">
+			<result name="logout" type="redirectAction">https://registration.deere.com/servlet/LogOutServlet
+			</result>
+		</action>
+
+	</package>
+
+	<package name="default" extends="common" namespace="/">
+		<default-interceptor-ref name="sessionStack" />
+
+		<action name="dashboard">
+			<result>login_action</result>
+		</action>
+		
+		<action name="search">
+			<result>search.jsp</result>
+		</action>
+		<action name="stockmanager">
+			<result>manufacture/addstock.jsp</result>
+		</action>
+		
+		<action name="stocktake" class="com.deere.inventory.action.WarehousingAction">
+			<result>manufacture/addstock.jsp</result>
+		</action>
+		<action name="dataImport" class="com.deere.action.DataImportAction">
+			<result name="success">/dataimport.jsp</result>
+			<result name="input">/dataimport.jsp</result>
+			<result name="invalid.token">/dataimport.jsp</result>
+		</action>
+		<action name="reimportMail" class="com.deere.action.ReimportMailAction">
+			<result name="success">/other.jsp</result>
+			<result name="error">/other.jsp</result>
+		</action>
+		<action name="computeRate" class="com.deere.action.ComputeRateAction">
+			<result name="success">/other.jsp</result>
+			<result name="error">/other.jsp</result>
+		</action>
+		<action name="computeRateAll" class="com.deere.action.ComputeRateAction"
+			method="computeRateAll">
+			<result name="success">/other.jsp</result>
+			<result name="error">/other.jsp</result>
+		</action>
+		<action name="inventoryForcastData" class="com.deere.action.InventoryForcastDataAction">
+			<result name="success">/other.jsp</result>
+			<result name="error">/other.jsp</result>
+		</action>
+
+		<action name="searchMachine" class="com.deere.action.DataSearchAction">
+			<result name="success" type="json">
+				<param name="root">partList</param>
+			
+			</result>
+		</action>
+		
+		<action name="searchInventory" class="com.deere.inventory.action.SearchStockAction">
+			<result name="success" type="json">
+				<param name="root">partList</param>
+			
+			</result>
+		</action>
+		<action name="bomExpend" class="com.deere.action.BomExpendAction">
+			<result name="success" type="json">
+				<param name="root">bomTreeList</param>
+			
+			</result>
+		</action>	
+		<action name="bomList" class="com.deere.action.BomListAction">
+			<result name="success" type="json">
+				<param name="root">bomJson</param>
+			
+			</result>
+		</action>	
+		
+		
+		<action name="searchInv" class="com.deere.inventory.action.InventoryAction">
+			<result name="success" type="json">
+				<param name="root">invList</param>
+			
+			</result>
+		</action>	
+		<action name="loadPreview" class="com.deere.action.DataImportAction">
+			<result name="preview" type ="json">/datapreview.jsp</result>
+				<param name="root">invList</param>
+			<result name="success">/datapreview.jsp</result>
+			<result name="input">/datapreview.jsp</result>
+			<result name="invalid.token">/datapreview.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>

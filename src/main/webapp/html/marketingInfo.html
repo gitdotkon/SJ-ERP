@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+<meta http-equiv="x-ua-compatible" content="IE=EmulateIE8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>销售信息</title>
+<link href="../css/tip-yellowsimple-jd.css" type="text/css" rel="stylesheet"/>
+<link href="../css/jquery-ui.min-jd.css" type="text/css" rel="stylesheet"/>
+<link href="../css/ui.jqgrid.css" type="text/css" rel="stylesheet"/>
+<link href="../css/chinapathways.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="../js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="../js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/grid.locale-cn.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/area/areaselect.js"></script>
+<script type="text/javascript" src="../js/area/data.js"></script>
+<script type="text/javascript" src="../js/marketing/marketingInfo.js"></script>
+
+<script type="text/javascript" src="../js/poshytip/jquery.poshytip.js"></script>
+
+<style type="text/css">
+.tabInput{width: 100px;}
+.tabSelectInput{height:22px; width: 107px;}
+ul,li{margin: 0;padding: 0;font: 12px normal "verdana", Arial, Helvetica, sans-serif;list-style: none;}
+
+#tabbox{ width:600px; overflow:hidden; margin:0 ;}
+.tab_conbox{border: 1px solid #999;border-top: none;}
+.tab_con{ display:none;}
+
+.tabs{height: 32px;border-bottom:1px solid #999;width: 100%;}
+.tabs li{height:31px;line-height:31px;float:left;border:1px solid #999;border-left:none;margin-bottom: -1px;background: #e0e0e0;overflow: hidden;position: relative;}
+.tabs li a {display: block;padding: 0 20px;border: 1px solid #fff;outline: none;cursor: pointer;}
+.tabs li a:hover {background: #ccc;}    
+.tabs .thistab,.tabs .thistab a:hover{background: #fff;border-bottom: 1px solid #fff;}
+.tab_con {padding:12px;font-size: 14px; line-height:175%;}
+
+
+ #gbox_rowedTable{
+   background-color:#FFFFFF; 
+} 
+ .ui-widget-content{
+  background-color:#FFFFFF; 
+ } 
+ .jqgrow{
+  background-color:#FFFFFF; 
+ }
+ .ui-row-ltr{ 
+ background-color:#FFFFFF;
+ } 
+ .privinces,.citys,.countys,.address { position: absolute; width: 300px; background-color: #f8f8f8; padding: 10px 15px; border: 1px #d9d9d9 solid; box-shadow: 3px 3px 5px rgba(128,128,128,0.2);}
+ .privinces .a,.citys .a,.countys .a,.address .a { font-family: "微软雅黑"; font-size: 12px; color: #333; text-decoration: none; display: block; float: left; *display: inline-block; _display: inline; zoom: 1; *float: none; padding: 3px 5px; }
+ .privinces a:hover,.citys .a:hover,.countys .a:hover,.address .a:hover { background-color: #f0d5d3; color: #fff;}
+</style>
+<script type="text/javascript" language="javascript">
+$(document).ready(function() {
+	 initMarket();
+	 /*选项卡调用方法如下：*/
+	 $.jqtab("#tabs",".tab_con");
+	
+     new locationCard({
+         ids: ['province', 'city', 'county']
+     }).init();	
+	});
+// 	setOpinionLeaderDialog();
+</script>
+</head>
+<body id="parentDiv">
+<!--#include file="/china/common/header.htm"-->
+<form action="" name="form_generated_code" id="form_generated_code"></form>
+<div  style="width: 780px;border: 1px solid; margin-left: 1px;">
+    <input type="hidden" id="tabShowTab" value="tab1">
+    <div align="left" style="width: 780px;height:16px; border-bottom:solid 1px ;border-bottom-color:#006600; ">&nbsp;&nbsp;
+		<div style="float: left;width:50%"><span><strong> 销售信息</strong></span></div>
+      	<div align="right" style="float: right;width: 50%">
+      	<span style=" margin-left: 5px;" ><a href="marketingInfo.html">销售信息</a></span>|
+    	<span style=" margin-left: 5px;"><a href="marketingForecast.html">销售预测</a></span>|
+    	<span style=" margin-left: 5px;"><a href="reportInventory.html">当月库存报告</a></span> 
+    	</div>  	
+    	</div>
+    <div align="left" style="padding-top: 30px; margin-left: 90px;">
+	    <div style=""><span>客户基本信息</span></div>
+	    <div style="width: 500px;height: 1px;"><hr></div>
+		<table border="0" cellpadding="0" cellspacing="0"  style="margin-top: 20px;">
+		    <tr>
+		        <td class=""><div style="float: right">姓名：</div> </td> 
+		        <td class=""><span class="adminFormItemComments">*</span></td>
+		        <td style="width: 220px;"><input type="text" id="name" class="conditionInput"></td>
+			    <td class=""><div style="float: right;">性别：</div> </td>
+			    <td style="width: 220px;"><div style="position: absolute;">
+			    <select  style="left: 0px;top: -10px; width:155px; height:22px; clip: rect(0px auto auto 135px);position: absolute;" onchange="document.getElementById('sex').value=this.options[this.selectedIndex].text" id="sexSelect" name="sexSelect" class="conditionInput">
+				    <option value="1" selected="selected">男</option>
+				    <option value="2">女</option>
+			    </select>
+			    <input id="sex" name="sex" value="男" style="margin:0px;left: 0px; top: -10px; width:133px; position: absolute" onblur="onblurSex(this)">
+			     </div></td>
+		    </tr>  
+		    <tr>
+		        <td colspan="2">&nbsp;</td> 
+		        <td><div id="errorName" style="display: none;"><span class="adminFormItemComments">[姓名] 必填</span></div></td>
+			    <td></td>
+			    <td><div id="errorSex" style="display: none;"><span class="adminFormItemComments">[性别] 必填</span></div></td>
+		    </tr>
+		    <tr>
+		        <td class=""><div style="float: right;">电话：</div> </td> 
+		        <td class=""><span class="adminFormItemComments">*</span></td>
+		        <td style="width: 220px;"><input type="text" id="phone" class="conditionInput" onkeypress="return IsNumAndLine(event)" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9-]/g,''))" onblur="onChangePhone(this);"></td>
+			    <td class=""></td>
+			    <td style="width: 220px;"></td>
+		    </tr>
+		    <tr>
+		        <td colspan="2">&nbsp;</td> 
+		        <td colspan="3"> 
+		            <div id="errorPhone" style="display: none;"><span class="adminFormItemComments">[电话] 必填</span></div>
+		            <div id="errorPhoneExpr" style="display: none;"><span class="adminFormItemComments">[电话] 格式错误 格式：0XX(X)-XXXXXXX(X)和XXXXXXXXXXX</span></div>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td class=""><div style="float: right;">地址：</div> </td> 
+		        <td class=""><span class="adminFormItemComments"></span></td>
+		        <td colspan="3">
+	            <div align="left">
+	            <input style="width: 80px; vertical-align:middle" id="province" type="text" placeholder="省份" />
+	            <input style="width: 80px; vertical-align:middle;display: none;" id="city" type="text" placeholder="城市" />
+	            <input style="width: 100px; vertical-align:middle;display: none;" id="county" type="text" placeholder="县级" />		        
+		        <input style="width: 180px; vertical-align:middle" id="address" type="text" placeholder="详细地址">
+		        </div>
+		        </td>
+		    </tr>		    
+		</table>
+		<br>
+    	<div style=""><span>详细信息</span></div>
+	    <div style="width: 500px;height: 1px;"><hr></div>
+    </div>
+    <div align="left" style="margin-left: 50px;">
+		<br>
+		<div id="tabbox">
+		    <ul class="tabs" id="tabs">
+		       <li style="margin-left: 20px;border-left: 1px solid #999;"><a tab="tab1">潜在客户登记</a></li>
+		       <li><a tab="tab2">成交客户登记</a></li>
+		       <li><a tab="tab3">丢失客户登记</a></li>
+		    </ul>
+		    <ul class="tab_conbox">
+		        <li id="tab1" class="tab_con">
+		           <table border="0" cellpadding="0" cellspacing="0"  style="margin-top: 30px; margin-left: 30px;">
+					    <tr>
+					        <td class="tabInfo"><div style="float: right;">客户来源：</div> </td> 
+					        <td style="width: 160px;"><div style="position: absolute;">
+					        <input type="hidden" id="opinionLeaderName" name="opinionLeaderName" /> 
+						    <select style="left: 0px;top: -10px; clip: rect(0px auto auto 80px);position: absolute;" onchange="document.getElementById('origine').value=this.options[this.selectedIndex].text;isShowOpinionLeader(this);" id="origineSelect" name="origineSelect" class="tabSelectInput">
+<!-- 							    <option value="到店" selected="selected">到店</option> -->
+<!-- 							    <option value="来电">来电</option> -->
+<!-- 							    <option value="朋友介绍">朋友介绍</option> -->
+<!-- 							    <option value="演示会/座谈会">演示会/座谈会</option> -->
+<!-- 							    <option value="展会/巡展">展会/巡展</option> -->
+<!-- 							    <option value="广告宣传(电视, 网站, 杂志, 公交广告等)">广告宣传(电视, 网站, 杂志, 公交广告等)</option> -->
+<!-- 							    <option value="经销商店面的宣传材料">经销商店面的宣传材料</option> -->
+<!-- 							    <option value="厂家邮寄的资料">厂家邮寄的资料</option> -->
+<!-- 							    <option value="老客户">老客户</option> -->
+<!-- 							    <option value="其它">其它</option> -->
+							    <option value="到店咨询（店面宣传资料）" selected="selected">到店咨询（店面宣传资料）</option>
+							    <option value="亲朋推荐">亲朋推荐</option>
+							    <option value="座谈会/推介会/培训">座谈会/推介会/培训</option>
+							    <option value="展会/巡展">展会/巡展</option>
+							    <option value="演示会">演示会</option>
+							    <option value="当地农机系统提供/客户拜访">当地农机系统提供/客户拜访</option>
+							    <option value="广告宣传(电视, 网站, 杂志, 公交广告等)">广告宣传(电视, 网站, 杂志, 公交广告等)</option>
+							    <option value="厂家邮寄的宣传品（直邮）">厂家邮寄的宣传品（直邮）</option>
+							    <option value="老客户">老客户</option>
+							    <option value="其它">其它</option>
+						    </select>
+						    <input id="origine" name="origine" value="到店咨询（店面宣传资料）" style="margin:0px;left: 0px; top: -10px; width: 85px; position: absolute" onblur="onblurOrigine(this)">
+						     </div></td>
+						    <td class="tabInfo"><div style="float: right;">首次接触时间：</div> </td> 
+						    <td style="width: 160px;"><input type="text" id="firstTime"  class="tabInput" readonly="readonly"/></td>
+					    </tr>
+					    <tr>
+					        <td>&nbsp;</td> 
+					        <td><div id="errorOrigine" style="display: none;"><span class="adminFormItemComments">[客户来源] 必填</span></div></td>
+					    </tr>
+					    <tr>
+					        <td class="tabInfo"><div style="float: right;">拟购机型：</div> </td> 
+					        <td ><div style="position: absolute;">
+						    <select style="left: 0px;top: -10px; clip: rect(0px auto auto 80px);position: absolute;" onchange="document.getElementById('intendsBuy').value=this.options[this.selectedIndex].text" id="intendsBuySelect" name="intendsBuySelect" class="tabSelectInput">
+						    </select>
+						    <input id="intendsBuy" name="intendsBuy"  style="margin:0px;left: 0px; top: -10px; width: 85px; position: absolute" onblur="onblurIntendsBuy(this)">
+						     </div></td>
+						    <td class="tabInfo"><div style="float: right;">拟购数量：</div> </td>
+						    <td><input type="text" id="intendsBuyNum" class="tabInput" onkeypress="return IsNum(event)" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9]/g,''))" title="该客户打算购买多少台?" ></td>
+					    </tr>
+					     <tr>
+					        <td>&nbsp;</td> 
+					        <td></td>
+					        <td></td> 
+					        <td colspan="3"><div id="errorIntendsBuyNum" style="display: none;"><span class="adminFormItemComments">[拟购数量] 必须是正整数</span></div></td>
+					    </tr>
+					</table>
+		        </li>
+		            
+		        <li id="tab2" class="tab_con">
+		             <table border="0" cellpadding="0" cellspacing="0" style="margin-top: 30px; margin-left: 30px;">
+					    <tr>
+					        <td class="tabInfo"><div style="float: right;">所属工厂：</div> </td> 
+					        <td style="width: 160px;"><div style="position: absolute;">
+							    <select style="left: 0px;top: -10px; clip: rect(0px auto auto 80px); position: absolute;" onchange="document.getElementById('belongsFactory').value=this.options[this.selectedIndex].text;changeDropListFactory()" id="belongsFactorySelect" name="belongsFactorySelect" class="tabSelectInput">
+								    <option value="JDNW" selected="selected">宁波工厂</option>
+								    <option value="JDTAW">天津工厂</option>
+								    <option value="JDHBW">哈尔滨工厂</option>
+								    <option value="JDJW">佳木斯工厂</option>
+							    </select>
+							    <input id="belongsFactory" name="belongsFactory" value="宁波工厂" style="margin:0px;left: 0px; top: -10px; width: 85px; position: absolute" onblur="onblurBelongsFactory(this)">
+						    </div></td>
+						    <td class="tabInfo"><div style="float: right;">成交日期：</div> </td> 
+						     <td style="width: 140px;"><input type="text" id="soldDate" class="tabInput" readonly="readonly"/></td>
+						    
+		    				<td style="width: 50px;"><div style="position: absolute; margin-top: -10px;"><input  type="radio" name="operationType" checked="checked" value="添加" onclick="selectOperationType()"><span >添加</span>
+		                             &nbsp;<input  type="radio" name="operationType" value="变更" onclick="selectOperationType()"><span >变更</span></div>
+		                                 </td>
+					    </tr>
+					    <tr>
+					        <td>&nbsp;</td> 
+					        <td><div id="errorBelongsFactory" style="display: none;"><span class="adminFormItemComments">[所属工厂] 必填</span></div></td>
+						    <td></td> 
+					        <td><div id="errorBuyModels" style="display: none;"><span class="adminFormItemComments">[购买机型] 必填</span></div></td>
+					    </tr>
+					    <tr>
+					    <td class="tabInfo"><div style="float: right;">购买机型：</div> </td> 
+					        <td style="width: 160px;"><div style="position: absolute;">
+						    <select style="left: 0px;top: -10px; clip: rect(0px auto auto 80px);position: absolute;" onchange="document.getElementById('buyModels').value=this.options[this.selectedIndex].text" id="buyModelsSelect" name="buyModelsSelect" class="tabSelectInput">
+						    </select>
+						    <input id="buyModels" name="buyModels" style="margin:0px;left: 0px; top: -10px; width: 85px; position: absolute" onblur="onblurBuyModels(this)">
+						     </div></td>
+						    <td class="tabInfo"><div style="float: right;">购买数量：</div> </td>
+						    <td><input type="text" id="buyNum" class="tabInput" onkeypress="return IsNum(event)" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9]/g,''))" title="该客户实际购买了多少台?"></td>
+					        <td><div style="position: absolute;margin-top: -11px; display: none;" id="updateDiv">标记号：<input type="text" id="updateId" class="tabInput" style="width: 40px;" onkeypress="return IsNum(event)" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9]/g,''))"></div></td>
+					    </tr>
+					    <tr>
+						    <td>&nbsp;</td>
+						    <td>&nbsp;</td>
+						    <td>&nbsp;</td>
+					        <td style="width: 100px;"><div id="errorBuyNum" style="display: none;"><span class="adminFormItemComments">[购买数量] 必须是正整数</span></div></td>
+					        <td colspan="2"><div id="errorUpdateId" style="display: none;"><span class="adminFormItemComments">[变更ID] 必填</span></div></td>
+						</tr>
+					</table>
+		        </li>
+		    
+		        <li id="tab3" class="tab_con">
+		            <table border="0" cellpadding="0" cellspacing="0" style="margin-top: 30px; margin-left: 30px;">
+					    <tr>
+					        <td class="tabInfo"><div style="float: right;">丢失原因：</div> </td> 
+					        <td style="width: 160px;"><div style="position: absolute;">
+						    <select style="left: 0px;top: -10px; clip: rect(0px auto auto 80px);position: absolute;" onchange="document.getElementById('lostCause').value=this.options[this.selectedIndex].text" id="lostCauseSelect" name="lostCauseSelect" class="tabSelectInput">
+							    <option value="价格太高" selected="selected">价格太高</option>
+							    <option value="产品性能不能满足要求">产品性能不能满足要求</option>
+							    <option value="交货时间不能满足要求">交货时间不能满足要求</option>
+							    <option value="当地政府补贴还未开始">当地政府补贴还未开始</option>
+							    <option value="零售信贷政策不能满足用户需求">零售信贷政策不能满足用户要求</option>
+							    <option value="不到作业季节, 不着急购机">不到作业季节, 不着急购机</option>
+							    <option value="不确定是否能够拿到补贴指标">不确定是否能够拿到补贴指标</option>
+							    <option value="处在同类产品的对比阶段">处在同类产品的对比阶段</option>
+							    <option value="生意模式改变导致不再有购机需求">生意模式改变导致不再有购机需求</option>
+							    <option value="其它">其它</option>
+						    </select>
+						    <input id="lostCause" name="lostCause" value="价格太高" style="margin:0px;left: 0px; top: -10px; width: 85px; position: absolute" onblur="onblurLostCause()">
+						     </div></td>
+						     <td class="tabInfo"><div style="float: right;">最初拟购机型：</div> </td> 
+					        <td ><div style="position: absolute;">
+						    <select style="left: 0px;top: -10px; clip: rect(0px auto auto 80px);position: absolute;" onchange="document.getElementById('origIntendModel').value=this.options[this.selectedIndex].text" id="origIntendModelSelect" name="origIntendModelSelect" class="tabSelectInput">
+						    </select>
+						    <input id="origIntendModel" name="origIntendModel"  style="margin:0px;left: 0px; top: -10px; width: 85px; position: absolute" onblur="onblurOrigIntendModel(this)">
+						     </div></td>
+					    </tr>
+					    <tr>
+					        <td>&nbsp;</td> 
+					        <td><div id="errorLostCause" style="display: none;"><span class="adminFormItemComments">[丢失原因] 必填</span></div></td>  
+					        <td></td> 
+					        <td><div id="errorOrigIntendModel" style="display: none;"><span class="adminFormItemComments">[最初拟购机型] 必填</span></div></td>
+					    </tr>
+					    <tr>
+					        <td class="tabInfo"><div style="float: right;">购买品牌：</div> </td> 
+					        <td ><div style="position: absolute;">
+						    <select style="left: 0px;top: -10px; clip: rect(0px auto auto 80px);position: absolute;" onchange="document.getElementById('buyBrand').value=this.options[this.selectedIndex].text;changeBuyBrandOther(this)" id="buyBrandSelect" name="buyBrandSelect" class="tabSelectInput">
+							    <option value="一拖东方红" selected="selected">一拖东方红</option>
+							    <option value="福田雷沃">福田雷沃</option>
+							    <option value="东风">东风</option>
+							    <option value="时风金鹰">时风金鹰</option>
+							    <option value="黄海金马">黄海金马</option>
+							    <option value="马恒达">马恒达</option>
+							    <option value="山拖">山拖</option>
+							    <option value="常发">常发</option>
+							    <option value="奇瑞">奇瑞</option>
+							    <option value="江苏清江">江苏清江</option>
+							    <option value="山东巨明">山东巨明</option>
+							    <option value="山东金亿">山东金亿</option>
+							    <option value="洛阳中收">洛阳中收</option>
+							    <option value="江苏沃得">江苏沃得</option>
+							    <option value="常发佳联">常发佳联</option>
+							    <option value="山东宁联">山东宁联</option>
+							    <option value="中农博远">中农博远</option>
+							    <option value="湖州星光">湖州星光</option>
+							    <option value="柳林">柳林</option>
+							    <option value="爱科">爱科</option>
+							    <option value="中机南方">中机南方</option>
+							    <option value="新疆牧神">新疆牧神</option>
+							    <option value="其他">其他</option>
+						    </select>
+						    <input id="buyBrand" name="buyBrand" value="一拖东方红" style="margin:0px;left: 0px; top: -10px; width: 85px; position: absolute" onblur="onblurBuyBrand(this)">
+						     </div></td>
+						     <td class="tabInfo"><div style="float: right;">实际支付：</div> </td> 
+					         <td style="width: 120px;"><input type="text" id="actualPayment" class="tabInput" onkeypress="return IsNumAndDot(event)" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9.]/g,''))" title="该客户从别处购买同类产品,实际支付的价格是多少(元)钱?"></td>
+					    </tr>
+					    <tr>
+					        <td></td> 
+					        <td><div id="buyBrandInputDiv" style="display: none;margin-left: -12px; margin-top: 10px;"><span class="adminFormItemComments">*</span>
+					        <input id="buyBrandInput" name="buyBrandInput" style="width: 100px;"></div></td>
+						    <td></td> 
+					        <td rowspan="2"><div id="errorActualPayment" style="display: none;"><span class="adminFormItemComments">[实际支付] 必须是数字</span></div></td>
+					    </tr>
+					    <tr>
+					        <td>&nbsp;</td> 
+					        <td><div id="errorBuyBrand" style="display: none;"><span class="adminFormItemComments">[购买品牌] 必填</span></div></td>
+						    <td></td> 
+					        <td></td>
+					    </tr>
+					    <tr>
+						    <td class="tabInfo"><div style="float: right;">经验总结：</div> </td>
+						    <td colspan="3"><textarea rows="2" cols="40" style="width: 352px;"id="experience" title="从这次丢失客户, 归纳出的经验, 并可用于日后的改进" ></textarea></td>
+					    </tr>
+					</table>
+		        </li>
+		    </ul>
+		    
+		</div>
+		<div style="height: 10px;">&nbsp;</div>
+	   	<div style="float: left;"><input type="button" value="删除" onclick="delMarketing();"></div>
+		<div style="padding-left: 100px;"><input type="button" value="新增" onclick="addMarketing();">
+		<div style="float: right;padding-right: 470px;"><input type="button" value="新客户" onclick="clearTitle();"></div>
+		</div>
+		<div style="width: 10px;">&nbsp;</div>
+		<div id="sourceTableHeadDiv" style="width: 600px; height:176px; overflow: auto;position:relative;">
+		    <table id="sourceTableHead"></table>
+		</div>
+		<div id="sourceTableDiv" style="display: none;">
+			<table id="sourceTable"></table>
+		</div>
+		<div  style="margin-left: 200px;padding:10px 0px 20px 0px;">
+		    <div onmousemove="moveFocus()" style="width: 80px;">
+				<input type="button" value="提交" style="width: 80px; " onclick="doSubmit()" >
+		    </div>
+		</div>
+    </div>
+	<div style="width: 780px;border-top: 1px solid;">&nbsp;</div>
+	
+	
+</div>
+
+<div id="opinionLeaderDlg" style="display: none;"> 
+    <div id="formContainer">  
+        <form id="consoleForm">  
+            <table class="formTable">  
+                <tr>  
+                    <th>推荐/介绍者姓名：</th>  
+                    <td>  
+                        <input type="text" class="textField" id="opinionLeader" name="opinionLeader" />  
+                    </td>  
+                </tr>  
+            </table>  
+        </form>  
+    </div>  
+</div>
+
+</body>
+
+<!--#include file="/china/common/footer.htm"-->
+</html>

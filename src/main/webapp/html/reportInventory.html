@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+<meta http-equiv="x-ua-compatible" content="IE=EmulateIE8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>报告库存</title>
+<link href="../css/jquery-ui.min-jd.css" type="text/css" rel="stylesheet"/>
+<link href="../css/ui.jqgrid.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="../js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="../js/reportInventory/reportInventory.js"></script>
+<link href="../css/chinapathways.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="../js/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/grid.locale-cn.js"></script>
+
+<style type="text/css">
+ #gbox_rowedTable{
+   background-color:#FFFFFF; 
+} 
+ .ui-widget-content{
+  background-color:#FFFFFF; 
+ } 
+ .jqgrow{
+  background-color:#FFFFFF; 
+ }
+ .ui-row-ltr{ 
+ background-color:#FFFFFF;
+ } 
+ .divCursor{cursor: pointer;}
+
+ </style> 
+<script type="text/javascript" language="javascript">
+$(document).ready(function() {
+	//初始化工厂和机型二级联动
+	changeType();
+	//使用jqGrid初始化表格
+	loadTable();
+	});
+</script>
+</head>
+<!--#include file="/china/common/header.htm"-->
+<body id="parentDiv">
+<form action="" name="form_generated_code" id="form_generated_code"></form>
+
+<form name="frm1">
+  <div align="left"  style="width: 780px; margin-left:2px; border:solid 1px ;bordercolor:#006600;">
+  <div style="width: 780px;height:16px; border-bottom:solid 1px ;border-bottom-color:#006600; ">&nbsp;&nbsp;
+		<div style="float: left;width:50%"><span><strong> 当月库存报告 </strong></span></div>
+      	<div align="right" style="float: right;width: 50%">
+      	<span style=" margin-left: 5px;" ><a href="marketingInfo.html">销售信息</a></span>|
+    	<span style=" margin-left: 5px;"><a href="marketingForecast.html">销售预测</a></span>|
+    	<span style=" margin-left: 5px;"><a href="reportInventory.html">当月库存报告</a></span> 
+    	</div>
+  </div>
+	<table border="0px" style="margin-left: 20px;margin-top: 30px;"  cellSpacing="0" cellPadding="0" width="700" align="center" >
+	    <tr> 
+		    <td class="ppa" style="width:110px;vertical-align: middle;"><div style="float: right;">排放类型：</div></td>
+		    <td class="ppa" colspan="3"><div style="position: absolute;"><input  type="radio" name="dischargeType" checked="checked" value="国Ⅱ"><span >国Ⅱ</span>
+		                             &nbsp;<input  type="radio" name="dischargeType" value="国Ⅲ"><span >国Ⅲ</span></div>
+		                                 </td>
+	    </tr>
+	    <tr>
+	     <td class="ppa"></td>
+	     <td class="ppa" colspan="3"><div id="errorRadio" style="display: none;float: right;"><span class="adminFormItemComments">[排放类型] 必填</span></div></td>
+	    </tr>
+	   
+	    <tr> 
+		    <td class="ppa"><div style="float: right;">所属工厂：</div></td>
+		    <td class="ppa" colspan="3">
+			   <div style="position: absolute; margin-top: 8px;">
+			    <select style="width: 110px;left: 0px;top: -8px; height:22px; clip: rect(0px auto auto 90px);position: absolute; " id="factory" name="factory" onchange="document.getElementById('belongsFactory').value=this.options[this.selectedIndex].text;changeType()" class="conditionInput">
+				    <option value="JDNW" selected>宁波工厂</option> 
+				    <option value="JDTAW">天津工厂</option>
+				    <option value="JDHBW">哈尔滨工厂</option>
+				    <option value="JDJW">佳木斯工厂</option>
+				    <option value="PEXT">农具</option>
+			    </select>
+			     <input id="belongsFactory" name="belongsFactory" value="宁波工厂" style="margin:0px;left: 0px; top: -8px; width: 87px; position: absolute" onblur="onblurFactory(this)">
+			    </div>
+		    </td>
+	    </tr>
+	    <tr>
+	     <td class="ppa"></td>
+	     <td class="ppa" colspan="3"> <div id="errorFactory" style="display: none;float: left;"><span class="adminFormItemComments">[工厂] 必填</span></div>
+	     </td>
+	    </tr>
+	    
+	    <tr> 
+		    <td class="ppa"><div style="float: right;">库存机型：</div></td>
+		    <td class="ppa" style="width:260px;" >
+		    
+		    <div style="float: left;">
+		    	<select style="width: 260px;height: 85px;" id="factoryModel"  name="factoryModel" class="conditionInput" multiple ondblclick="moveLeftOrRight(document.frm1.factoryModel,document.frm1.ObjSelect)"></select>  
+		    </div>
+		    </td>
+		     <td class="ppa" style="width:90px;">
+		      <div align="center" class="divCursor" style="margin-top: 2px; margin-left: 3px;"> <span onclick="moveLeftOrRight(document.frm1.factoryModel,document.frm1.ObjSelect)" title="增加 ">增加 &nbsp;&gt;</span></div>
+		      <div align="center" class="divCursor" style="margin-top: 3px;"> <span onclick="moveLeftOrRightAll(document.frm1.factoryModel,document.frm1.ObjSelect)" title="全部增加  >">全部增加&gt;&gt;</span> </div>
+		      <div align="center" class="divCursor" style="margin-top: 4px;"> <span onclick="moveLeftOrRight(document.frm1.ObjSelect,document.frm1.factoryModel)" title="移除">&lt;&nbsp;移除</span></div>
+		      <div align="center" class="divCursor" style="margin-top: 5px;"> <span onclick="moveLeftOrRightAll(document.frm1.ObjSelect,document.frm1.factoryModel)" title="全部移除">&lt;&lt;全部移除</span></div>
+		     </td>
+		     <td class="ppa">
+		     <div style="float: left; ">
+                 <select style="width: 260px;height: 85px;" name="ObjSelect" id="ObjSelect"  multiple ondblclick="moveLeftOrRight(document.frm1.ObjSelect,document.frm1.factoryModel)">
+                 </select>
+		     </div>
+		    </td> 
+	    </tr>
+	    <tr>
+	     <td >&nbsp;</td>
+	     <td ></td>
+	     <td ></td>
+	     <td ><div id="errorModel" style="display: none;"><span class="adminFormItemComments">[机型] 必填</span></div></td>
+	    </tr>
+	    <tr>
+	    	<td><input type="button"  style="width: 45px;" value="删除" onclick="delGrid()"> </td>
+	    	 <td >&nbsp;
+	    	 </td>
+	   		<td><input type="button" style="width: 45px;" value="新增" onclick="addGrid()"></td>
+	    </tr>
+	</table>
+	<div style="height: 10px;">&nbsp;</div>
+	<div style="margin-left: 50px;">提示：【请您在新增后补充下面清单中的数量。】<br/>
+		<table id="rowedTable"></table>
+	</div>
+	<br>
+		
+	<div align="center" >
+	    <div onmousemove="moveFocus()" style="width: 80px;">
+			<input type="button" value="提交" style="width: 80px; " onclick="subJsonData()" >
+	    </div>
+	</div>
+
+	<div style="height: 40px;">&nbsp;</div>
+	 <div align="left" style="width: 780px;height:16px;border-top:solid 1px ;border-bottom-color:#006600; ">&nbsp;&nbsp;<span>&nbsp;</span></div>
+</div>
+</form>
+</body>
+<!--#include file="/china/common/footer.htm"-->
+</html>
