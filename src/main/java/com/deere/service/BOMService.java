@@ -14,6 +14,7 @@ import com.deere.exception.GenericException;
 import com.deere.inventory.service.InventoryService;
 import com.deere.model.BOMTree;
 import com.deere.model.GenericPart;
+import com.deere.model.Inventory;
 import com.deere.model.dto.PartDto;
 import com.deere.model.enums.PartType;
 import com.deere.model.exdto.ExBOMTree;
@@ -145,13 +146,14 @@ public List<PartDto> searchMachine(String partCode,String partIndex,int pagesize
 			String partType= PartType.getPartType(partIndex);
 			query+=" and partType='"+partType+"'";
 		}
-		
-		List<GenericPart> machineList = partDao.findByPage(query, 0, pagesize);
+				List<GenericPart> machineList = partDao.findByPage(query, 0, pagesize);
 		List<PartDto> dtoList = new ArrayList<PartDto>();
 		for (GenericPart genericPart : machineList) {
 			PartDto dto = new PartDto();
 			BeanUtils.copyProperties(genericPart, dto);
-			dto.setAddress(invSerivice.getInvbyPart(genericPart).getAddress());
+			Inventory inv = invSerivice.getInvbyPart(genericPart);
+			dto.setAddress(inv.getAddress());
+			dto.setQuantity(inv.getQuantity());
 			dtoList.add(dto);
 		}
 		

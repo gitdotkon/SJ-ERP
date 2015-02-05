@@ -110,6 +110,7 @@ public class InventoryService {
 		if (invList.size() == 0) {
 			inv = new Inventory();
 			inv.setPart(part);
+			inv.setQuantity(0);
 		} else {
 			inv = invList.get(0);
 		}
