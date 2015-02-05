@@ -1,3 +1,4 @@
+<%@page contentType="text/html; charset=UTF-8"%>
 <!-- Header -->
 <div class="container">
 	<div class="navbar-header">
