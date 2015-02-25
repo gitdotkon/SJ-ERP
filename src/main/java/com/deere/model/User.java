@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class User extends GenericModel {
 	
 	private String userName;
 	private String password;
@@ -21,5 +21,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public User(String userName) {
+		super();
+		this.userName = userName;
+	}
+	public User(){}
+	
 	
 }

@@ -34,6 +34,38 @@
 		<action name="search">
 			<result>search.jsp</result>
 		</action>
+		<action name="production">
+			<result>manufacture/production.jsp</result>
+		</action>
+		
+		<action name="ordermanagement" class="com.deere.sales.action.SalesOrderAction">
+			<result>manufacture/salesorder.jsp</result>
+			
+		</action>
+		
+		<action name="order" >
+			<result>manufacture/searchorder.jsp</result>
+		</action>
+		
+		<action name="mpr" class="com.deere.sales.action.SalesOrderListAction" >
+			<result name="success">manufacture/searchorder.jsp</result>
+		</action>
+		
+		<action name="mprCal" class="com.deere.sales.action.SalesOrderListAction" method="mprCal" >
+			<result name="success">manufacture/searchorder.jsp</result>
+		</action>
+		
+		<action name="ordersearch" class="com.deere.sales.action.SalesOrderSearchAction">
+			<result name="success" type="json">
+				<param name="root">salesOrderList</param>
+			</result>
+		</action>
+		
+		<action name="orderList" class="com.deere.sales.action.SalesOrderListAction">
+			<result name="success" type="json">
+				<param name="root">salesOrderItems</param>
+			</result>
+		</action>
 		
 		
 		<action name="stockmanager" class="com.deere.inventory.action.WarehousingAction">
@@ -44,6 +76,8 @@
 			
 			</result>
 		</action>
+		
+		
 		
 
 		<action name="searchMachine" class="com.deere.action.DataSearchAction">
@@ -73,6 +107,13 @@
 			
 			</result>
 		</action>	
+		
+		<action name="productionList" class="com.deere.manufacture.action.ProductionAction">
+			<result name="success" type="json">
+				<param name="root">productionList</param>
+			</result>
+		</action>
+		
 		<action name="loadPreview" class="com.deere.action.DataImportAction">
 			<result name="preview" type ="json">/datapreview.jsp</result>
 				<param name="root">invList</param>

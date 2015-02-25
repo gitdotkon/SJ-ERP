@@ -11,12 +11,22 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	Map<String, Object> session;
+	private String jsonData;
 
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session=session;
 	}
+
+	public String getJsonData() {
+		return jsonData;
+	}
+
+	public void setJsonData(String jsonData) {
+		this.jsonData = jsonData;
+	}
+	
+	
 
 }

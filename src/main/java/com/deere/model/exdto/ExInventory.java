@@ -13,18 +13,16 @@ public class ExInventory {
 	@ExcelAnnotation(field = "现结存数量")
 	private Integer quantity;
 	
-	private GenericPart part;
-	
+
 	@Id
 	public String getPartCode() {
 		return partCode;
 	}
+	
 	public void setPartCode(String partCode) {
 		this.partCode = partCode;
-		GenericPart gpart= new GenericPart();
-		gpart.setPartCode(partCode);
-		setPart(gpart);
 	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -37,12 +35,7 @@ public class ExInventory {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	public GenericPart getPart() {
-		return part;
-	}
-	public void setPart(GenericPart part) {
-		this.part = part;
-	}
+
 	
 	
 }

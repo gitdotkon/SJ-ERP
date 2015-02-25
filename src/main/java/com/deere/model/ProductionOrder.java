@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,18 +13,19 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ProductionOrder extends GenericModel {
-	private String orderId;
+	private String orderNum;
 	private Date orderDate;
 	private User responsible;
 	@Id
-	public String getOrderId() {
-		return orderId;
-	}
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Date getOrderDate() {
 		return orderDate;
+	}
+	public String getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
 	}
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;

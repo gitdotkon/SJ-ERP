@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class GenericModel {
+public class GenericModel{
 	private Date modifiedDate;
 	private String modifiedBy;
 

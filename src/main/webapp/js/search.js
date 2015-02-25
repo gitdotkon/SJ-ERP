@@ -58,7 +58,7 @@ onClick = function(parent) {
 	var lastSel;
 	 $("#treegrid").jqGrid('GridUnload');
 	$("#treegrid").jqGrid({ 
-	onSelectRow: function(id){ 
+		onSelectRow: function(id){ 
 		   if(id && id!==lastSel){ 
 			  jQuery('#treegrid').restoreRow(lastSel); 
 			  lastSel=id; 

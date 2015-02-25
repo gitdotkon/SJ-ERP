@@ -11,6 +11,12 @@ import com.deere.model.dto.PartDto;
 import com.deere.service.BOMService;
 
 public class InventoryAction extends BaseAction {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@Autowired
 	private InventoryService invService;
 	

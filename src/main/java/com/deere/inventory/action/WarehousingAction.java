@@ -103,7 +103,7 @@ public class WarehousingAction extends BaseAction {
 		List<PartDto> stockList = Utils.json2Object(stockJson, PartDto.class);
 		Date entryDate = new Date();
 		// entryDate.setTime(Long.valueOf(warehousingDate));
-		invService.warehouseEntry(stockList, entryDate);
+//		 List<PartDto> partList =invService.warehouseOut(stockList, entryDate);
 		return SUCCESS;
 	}
 }

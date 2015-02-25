@@ -93,7 +93,7 @@ onStockSearch = function() {
 				   var rowData = $("#partTable").jqGrid("getRowData",id);//
 				   addStock(rowData);
 				},
-	        url:"searchInv.action!searchParts?"+query,
+	        url:"searchInv.action?"+query,
 	        datatype:"json", //数据来源，本地数据
 	        mtype:"POST",//提交方式
 	        height:120,//高度，表格高度。可为数值、百分比或'auto'
@@ -215,10 +215,24 @@ doSubmit = function(){
 	//通过cookie获取的sm_session_cookie stocktake!warehouseEntry
 	document.stock_form.stockJson.value = JSON.stringify(jsonData);
 //	document.stock_form.warehousingDate.value = JSON.stringify(jsonData);
-	document.stock_form.action = "stockmanager!warehouseEntry";
+	document.stock_form.action = "stockmanager!warehouseEntry";addstock.jsp
 	document.stock_form.method = "post";
 	document.stock_form.submit();
 };
+
+doRetrieval = function(){
+	
+	createNewFieldToForm("stock_form", "stockJson");
+
+	var jsonData = $("#stockTable").jqGrid("getRowData");
+	//通过cookie获取的sm_session_cookie stocktake!warehouseEntry
+	document.stock_form.stockJson.value = JSON.stringify(jsonData);
+//	document.stock_form.warehousingDate.value = JSON.stringify(jsonData);
+	document.stock_form.action = "stockmanager!warehouseOut";
+	document.stock_form.method = "post";
+	document.stock_form.submit();
+};
+
 
 function createNewFieldToForm(FormId, FieldId)
 {

@@ -15,7 +15,7 @@ public class ProductionOrderItem extends GenericModel {
 	private ProductionOrder proOrder;
 	private GenericPart part;
 	private Integer plannedQty;
-	private Integer finishedQty;
+	private Integer finishedQty=0;
 	private String batchNumber;
 	
 	@Id

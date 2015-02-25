@@ -1,6 +1,7 @@
 package com.deere.manufacture.service;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -11,11 +12,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.deere.dao.GenericDao;
 import com.deere.model.GenericPart;
+import com.deere.model.SalesOrder;
+import com.deere.sales.service.SalesOrderService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class MPRServiceTest {
 	@Autowired
 	private MPRService mpr;
+	
+	@Autowired
+	private SalesOrderService SOService;
 	
 	@Autowired
 	private GenericDao<GenericPart> partDao;
@@ -32,5 +38,11 @@ public class MPRServiceTest {
 			System.out.println(key+":"+mprList.get(key));
 		}
 	}
-
+	
+	@Test
+	public void testRunMPR(){
+		List<SalesOrder> SOList= SOService.findUnplannedOrder();
+		mpr.runMPR(SOList);
+		
+	}
 }
