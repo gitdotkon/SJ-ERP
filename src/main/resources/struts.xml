@@ -38,6 +38,10 @@
 			<result>manufacture/production.jsp</result>
 		</action>
 		
+		
+		<action name="productionplan">
+			<result>manufacture/productionplan.jsp</result>
+		</action>
 		<action name="ordermanagement" class="com.deere.sales.action.SalesOrderAction">
 			<result>manufacture/salesorder.jsp</result>
 			
@@ -51,7 +55,7 @@
 			<result name="success">manufacture/searchorder.jsp</result>
 		</action>
 		
-		<action name="mprCal" class="com.deere.sales.action.SalesOrderListAction" method="mprCal" >
+		<action name="mprCal" class="com.deere.sales.action.SalesOrderSearchAction" method="mprCal" >
 			<result name="success">manufacture/searchorder.jsp</result>
 		</action>
 		
@@ -111,6 +115,12 @@
 		<action name="productionList" class="com.deere.manufacture.action.ProductionAction">
 			<result name="success" type="json">
 				<param name="root">productionList</param>
+			</result>
+		</action>
+		
+		<action name="listOrder" class="com.deere.manufacture.action.ProductionAction" method="listOrder">
+			<result name="success" type="json">
+				<param name="root">orderList</param>
 			</result>
 		</action>
 		

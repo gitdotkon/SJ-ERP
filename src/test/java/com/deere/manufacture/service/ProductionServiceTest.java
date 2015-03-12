@@ -1,7 +1,6 @@
 package com.deere.manufacture.service;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,14 +17,12 @@ public class ProductionServiceTest {
 	ProductionService proService;
 	@Test
 	public void testGeneratePlan() {
-//		fail("Not yet implemented");
-		List<ProductionDto> proDtoList = new ArrayList<ProductionDto>();
-		ProductionDto proDto = new ProductionDto();
-		proDto.setPartCode("test");
-		proDto.setActualQty(10);
-		proDto.setQuantity(100);
-		proDtoList.add(proDto);
-		proService.generatePlan(proDtoList, "100");
+		List<ProductionDto>  proList= proService.productionPlan();
+		System.out.print(proList.size());
+		for (ProductionDto productionDto : proList) {
+			System.out.println(productionDto.getPartName() + productionDto.getRequiredQty());
+		}
+		
 	}
 
 }

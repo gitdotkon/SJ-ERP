@@ -130,4 +130,6 @@ public class SalesOrderAction extends BaseAction {
 		soService.generateOrder(salesOrder);
 		return SUCCESS;
 	}
+	
+	
 }

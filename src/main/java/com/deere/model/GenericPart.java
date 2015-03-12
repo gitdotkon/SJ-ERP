@@ -73,5 +73,9 @@ public class GenericPart extends GenericModel {
 		}
 		return r;
 	}
+	@Override
+	public String toString(){
+		return this.getPartCode()+this.getPartName();
+	}
 	
 }

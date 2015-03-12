@@ -1,5 +1,7 @@
 package com.deere.model.dto;
 
+import java.util.Date;
+
 
 public class SalesOrderDto {
 	private Integer itemNum;
@@ -7,8 +9,23 @@ public class SalesOrderDto {
 	private String partCode;
 	private String partName;
 	private String partType;
+	private Date deliveryDate;
+	private Date dueDate;
 	private Float price;
 	private Integer quantity;
+	
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+	public Date getDueDate() {
+		return dueDate;
+	}
+	public void setDueDate(Date dueDate) {
+		this.dueDate = dueDate;
+	}
 	public Integer getItemNum() {
 		return itemNum;
 	}

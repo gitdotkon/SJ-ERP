@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.deere.action.BaseAction;
 import com.deere.common.Constants;
+import com.deere.manufacture.service.MPRService;
 import com.deere.model.SalesOrder;
 import com.deere.sales.service.SalesOrderService;
 
@@ -15,6 +16,9 @@ public class SalesOrderSearchAction extends BaseAction {
 	SimpleDateFormat sdf = new SimpleDateFormat(Constants.dfyyMMdd);
 	@Autowired
 	private SalesOrderService soService;
+	
+	@Autowired
+	private MPRService mpr;
 	
 	private List<SalesOrder> salesOrderList = new ArrayList<SalesOrder>();
 	
@@ -111,23 +115,35 @@ public class SalesOrderSearchAction extends BaseAction {
 	}
 	
 	public String mprCal(){
-		String query = this.genQuery();
-//		String query ="";
-		this.setSalesOrderList(soService.findUnplannedOrder(query));
+		
+		orderNum=orderNum.substring(0,orderNum.length()-1);
+		String[] orders =orderNum.split(",");
+		List<SalesOrder> salesOrders =new  ArrayList<SalesOrder>();
+		for (String order : orders) {
+			SalesOrder salesOrder = soService.findOrderbyNum(order);
+			salesOrders.add(salesOrder);
+			
+		}
+		
+		mpr.runMPR(salesOrders);
 		return SUCCESS;
 		
 	}
 	
 	@Override
 	public String execute() throws Exception {
-		orderNum=orderNum.substring(0,orderNum.length()-1);
-		String[] orders =orderNum.split(",");
-//		List<SalesOrder> salesOrders =new  ArrayList<SalesOrder>();
-		for (String order : orders) {
-			SalesOrder salesOrder = soService.findOrderbyNum(order);
-//			salesOrders.add(salesOrder);
-			soService.generateOrder(salesOrder);
-		}
+		String query = this.genQuery();
+//		String query ="";
+		this.setSalesOrderList(soService.findUnplannedOrder(query));
+		return SUCCESS;
+	}
+	
+	
+//	@Override
+	public String listOrder() throws Exception {
+		String query = this.genQuery();
+//		String query ="";
+		this.setSalesOrderList(soService.findUnplannedOrder(query));
 		return SUCCESS;
 	}
 }

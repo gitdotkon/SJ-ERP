@@ -1,22 +1,20 @@
 package com.deere.model.dto;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import com.deere.model.GenericPart;
+
 public class ProductionDto {
-	private String parentCode;
 	private String partCode;
 	private String partName;
 	private String partType;
 	private Integer requiredQty;
-	private Integer quantity;
+	private Integer inventoryQty;
 	private Integer recommandedQty;
 	private Integer actualQty;
 	private Boolean proType =true;
 	
-	public String getParentCode() {
-		return parentCode;
-	}
-	public void setParentCode(String parentCode) {
-		this.parentCode = parentCode;
-	}
 	public String getPartCode() {
 		return partCode;
 	}
@@ -42,11 +40,12 @@ public class ProductionDto {
 		this.requiredQty = requiredQty;
 	}
 	
-	public Integer getQuantity() {
-		return quantity;
+	
+	public Integer getInventoryQty() {
+		return inventoryQty;
 	}
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setInventoryQty(Integer inventoryQty) {
+		this.inventoryQty = inventoryQty;
 	}
 	public Integer getRecommandedQty() {
 		return recommandedQty;
@@ -66,6 +65,24 @@ public class ProductionDto {
 	public void setProType(Boolean proType) {
 		this.proType = proType;
 	}
+	public ProductionDto(){
+		
+	}
+	
+//	public ProductionDto( String partCode, String partName,
+//			String partType, Integer requiredQty) {
+//		this.partCode = partCode;
+//		this.partName = partName;
+//		this.partType = partType;
+//		this.requiredQty = requiredQty;
+	
+	public ProductionDto( GenericPart part,  Long requiredQty) {
+		this.partCode = part.getPartCode();
+		this.partName=part.getPartName();
+		this.partType=part.getPartType();
+		this.requiredQty = requiredQty != null ? requiredQty.intValue() : null;
+	}
+	
 	
 	
 }

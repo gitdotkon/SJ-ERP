@@ -50,5 +50,4 @@ public class SessionCheckInterceptor extends AbstractInterceptor {
 	public void setReloginResult(String reloginResult) {
 		this.reloginResult = reloginResult;
 	}
-
 }

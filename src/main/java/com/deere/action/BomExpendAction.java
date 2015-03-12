@@ -62,4 +62,7 @@ public class BomExpendAction extends BaseAction {
 		System.out.println("expend"+bomTreeList.size());
 		return SUCCESS;
 	}
+	
+	
+	
 }

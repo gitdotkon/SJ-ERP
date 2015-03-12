@@ -16,11 +16,12 @@ public class ProductionOrder extends GenericModel {
 	private String orderNum;
 	private Date orderDate;
 	private User responsible;
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
 	public Date getOrderDate() {
 		return orderDate;
 	}
+	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	public String getOrderNum() {
 		return orderNum;
 	}

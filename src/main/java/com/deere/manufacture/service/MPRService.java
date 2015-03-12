@@ -129,6 +129,7 @@ public class MPRService {
 				mprModel.setPart(part);
 				mprModel.setSalesOrder(salesOrder);
 				mprModel.setRequiredQty(requiredQty);
+				mprModel.setDueDate(salesOrder.getDueDate());
 				// TODO recommanded quantity = required-inv
 				mprModel.setDeliveryDate(salesOrder.getDeliveryDate());
 				MPRDao.merge(mprModel);
@@ -138,5 +139,12 @@ public class MPRService {
 			salesOrder.setPlanned(true);
 			SODao.merge(salesOrder);
 		}
+	}
+	
+	public List<MPRModel> listOrderforPart(String partCode){
+		
+		String query="from MPRModel where partCode='"+partCode+"'";
+		return MPRDao.query(query);
+//		return null;
 	}
 }

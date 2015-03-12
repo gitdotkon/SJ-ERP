@@ -20,7 +20,7 @@
 		<div class="jumbotron">
 			<h1>出错拉:-(</h1>
 			<p>请点击"返回"按钮回到上一页面重试,如果问题仍然存在,请联系管理员! Email:ZhengSuiyao@JohnDeere.com,RenHonglin@JohnDeere.com</p>
-			<p><div style="color: red;"><s:property value="exception.message"/></div></p>
+			<p><div style="color: red;"><s:property value="exception.printStackTrace()"/></div></p>
 			<p>
 			<!-- TODO -->
 				<a class="btn btn-lg btn-primary" href="javascript:history.go(-1)"

@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.deere.dao.GenericDao;
 import com.deere.model.GenericPart;
+import com.deere.model.MPRModel;
 import com.deere.model.SalesOrder;
 import com.deere.sales.service.SalesOrderService;
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -41,8 +42,18 @@ public class MPRServiceTest {
 	
 	@Test
 	public void testRunMPR(){
-		List<SalesOrder> SOList= SOService.findUnplannedOrder();
+		List<SalesOrder> SOList= SOService.findUnplannedOrder("");
 		mpr.runMPR(SOList);
 		
+	}
+	
+	@Test
+	public void testListorder(){
+		List<MPRModel> mprm=mpr.listOrderforPart("BSL-01");
+		for (MPRModel mprModel : mprm) {
+			System.out.println(mprModel.getSalesOrder().getOrderNum()+"/"+mprModel.getPart().getPartCode()
+					+":"+mprModel.getRequiredQty());
+		}
+//		2-(6)923(B)
 	}
 }

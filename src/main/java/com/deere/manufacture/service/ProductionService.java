@@ -1,12 +1,8 @@
 package com.deere.manufacture.service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +13,7 @@ import com.deere.model.Inventory;
 import com.deere.model.MPRModel;
 import com.deere.model.ProductionOrder;
 import com.deere.model.ProductionOrderItem;
-import com.deere.model.SalesOrder;
-import com.deere.model.SalesOrderItem;
-import com.deere.model.dto.PartDto;
 import com.deere.model.dto.ProductionDto;
-import com.deere.model.enums.MPRType;
 import com.deere.sales.service.SalesOrderService;
 
 @Service
@@ -43,12 +35,15 @@ public class ProductionService {
 	private GenericDao<ProductionOrderItem> proItemDao;
 	
 	@Autowired
+	private GenericDao<ProductionDto> proDtoDao;
+	
+	@Autowired
 	private InventoryService invService;
 	
 	@Autowired
 	private SalesOrderService SOService;
 	
-	public List<ProductionDto> genProOrder(List<PartDto> dtoList){
+	/*public List<ProductionDto> genProOrder(List<PartDto> dtoList){
 		List<ProductionDto> productionList= new ArrayList<ProductionDto>();
 		Map<String,Integer> mprList = mpr.getMPR(dtoList);
 		Iterator<String> it =  mprList.keySet().iterator();
@@ -74,6 +69,36 @@ public class ProductionService {
 			productionList.add(proDto);
 		}
 		return productionList;
+	}*/
+	
+	public List<ProductionDto> productionPlan(){
+
+	/*	
+		String query = "select new com.deere.model.dto.ProductionDto(a.partCode,partName,partType,a.qty)"
+		+ " from (select partCode,sum(requiredQty) qty from MPRModel where mprType=0 group by partCode) a,GenericPart"
+		+ " where a.partCode=GenericPart.partCode";*/
+		
+		String query ="select new com.deere.model.dto.ProductionDto(mm.part,SUM(mm.requiredQty))"
+				+ " from MPRModel mm where mm.mprType=0 group by mm.part.partCode";
+		
+		List<ProductionDto> dtoList= proDtoDao.query(query);
+		for (ProductionDto proDto : dtoList) {
+			Inventory inv =inventoryDao.findById(proDto.getPartCode());
+			if(inv==null) 
+				proDto.setInventoryQty(0);
+			else 
+				proDto.setInventoryQty(inv.getQuantity());
+			Integer recommandedQty =  proDto.getRequiredQty()-proDto.getInventoryQty();
+			if(recommandedQty<0)
+				recommandedQty=0;
+			proDto.setRecommandedQty(recommandedQty);
+			proDto.setActualQty(recommandedQty);
+			
+		}
+		
+		
+		return dtoList;
+		
 	}
 	
 	public void generatePlan(List<ProductionDto> proDtoList,String PONumber){
@@ -84,8 +109,8 @@ public class ProductionService {
 		for (ProductionDto productionDto : proDtoList) {
 			ProductionOrderItem poItem = new ProductionOrderItem();
 //			BeanUtils.copyProperties(productionDto, poItem);
-			GenericPart part = partDao.findById(productionDto.getParentCode());
-			poItem.setPart(part);
+//			GenericPart part = partDao.findById(productionDto.getParentCode());
+//			poItem.setPart(part);
 			poItem.setPlannedQty(productionDto.getActualQty());
 			
 			poItem.setProOrder(proOrder);

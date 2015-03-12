@@ -54,6 +54,18 @@ delGrid = function() {
 	$("#proTable").jqGrid('resetSelection');
 };
 
+
+selectOrder = function() {
+	var grs = jQuery("#proTable").jqGrid('getGridParam', 'selarrrow');
+	if (grs.length > 0)
+		jQuery("#proTable").jqGrid('delGridRow', grs, {
+			reloadAfterSubmit : false
+		});
+	else
+		alert("请选择要删除行！");
+	// 若点击了全选按钮，重置全选按钮框
+	$("#proTable").jqGrid('resetSelection');
+};
 onCheckEnter = function(e) {
 	var keyCode = null;
 
@@ -164,7 +176,7 @@ loadTable = function() {
 	$("#dueDate").val(getSystemData());
 	jQuery("#proTable").jqGrid({
 		datatype : "local",
-		height : 400,
+		height : 600,
 		// width : 685,
 		autowidth : true,
 		colNames : [ '物料号', '物料名称', '零件类型', '數量' ],
@@ -215,13 +227,156 @@ loadTable = function() {
 	});
 };
 
+onExpend = function(partNum) {
+	 $("#orderItemTable").jqGrid('GridUnload');
+	$("#orderItemTable").jqGrid({
+      url:"listOrder.action?partCode="+partNum,
+      datatype:"json", //数据来源，本地数据
+      mtype:"POST",//提交方式
+      height:420,//高度，表格高度。可为数值、百分比或'auto'
+      //width:1000,//这个宽度不能为百分比
+      autowidth:true,//自动宽
+      colNames:['订单号', '物料号','数量','要求完成时间','发货时间'],
+      colModel:[
+          //{name:'id',index:'id', width:'10%', align:'center' },
+          
+          {name:'salesOrder',index:'salesOrder', width:'15%',align:'left'},
+          {name:'partCode',index:'partCode', width:'20%', align:"left"},
+          {name:'quantity',index:'quantity', width:'15%', align:"left", sortable:false},
+          {name:'dueDate',index:'dueDate', width:'20%', formatter:'date', formatoptions:{newformat: 'Y年m月d日'},align:"left"},
+          {name:'deliveryDate',index:'deliveryDate',formatter:'date', formatoptions:{newformat: 'Y年m月d日'},width:'20%', align:"left"}
+          
+      ],
+      rownumbers:true,//添加左侧行号
+      //altRows:true,//设置为交替行表格,默认为false
+      //sortname:'createDate',
+      //sortorder:'asc',
+      viewrecords: true,//是否在浏览导航栏显示记录总数
+      rowNum:15,//每页显示记录数
+//      rowTotal:2000,
+      rowList:[15,20,25],//用于改变显示行数的下拉列表框的元素数组。
+      loadonce:true,
+      gridview: true,  
+      multiselect : true,
+      viewrecords: true,
+      jsonReader:{
+          root:"orderList",
+          repeatitems : false
+      },
+      pager:$('#orderPager')
+  });
+};
 
 
+loadPlan = function() {
 
+	$("#planTable").jqGrid('GridUnload');
+	$("#planTable").jqGrid(
+			{
+				onSelectRow: function(id){ 
+					   if(id && id!==lastSel){ 
+						  jQuery('#planTable').restoreRow(lastSel); 
+						  lastSel=id; 
+					   } 
+					   var rowData = $("#planTable").jqGrid("getRowData",id);//
+					   var expendCode= rowData.partCode;
+					   onExpend(expendCode);
+					},
+				url : "productionList.action",
+				datatype : "json", // 数据来源，本地数据
+				mtype : "POST",// 提交方式
+				height : 420,// 高度，表格高度。可为数值、百分比或'auto'
+				width : 600,// 这个宽度不能为百分比
+				autowidth : true,// 自动宽
+				colNames : [ '物料号', '物料名称', '零件类型', '需求数量', '库存数量', '建议数量',
+						'投产数量', '自制/外协' ],
+				colModel : [ {
+					name : 'partCode',
+					index : 'partCode',
+					sortable : true,
+					width : 120,
+					align : "center"
+				}, {
+					name : 'partName',
+					index : 'partName',
+					sortable : true,
+					width : 120,
+					align : "center"
+				}, {
+					name : 'partType',
+					index : 'partType',
+					sortable : true,
+					width : 120,
+					align : "center"
+				}, {
+					name : 'requiredQty',
+					index : 'requiredQty',
+					sortable : true,
+					width : 120,
+					align : "center"
+				}, {
+					name : 'inventoryQty',
+					index : 'inventoryQty',
+					sortable : true,
+					width : 120,
+					align : "center"
+				}, {
+					name : 'recommandedQty',
+					index : 'recommandedQty',
+					sortable : true,
+					width : 120,
+					align : "center"
+				}, {
+					name : 'actualQty',
+					index : 'actualQty',
+					sortable : true,
+					width : 120,
+					align : "center",
+					editable : true,
+					editrules : {
+						integer : true,
+						minValue : 1
+					}
+				}, {
+					name : 'proType',
+					index : 'proType',
+					sortable : true,
+					
+					formatter: 'checkbox',
+					width : 120,
+					align : 'center',
+					edittype: 'checkbox',
+					editable : true,
+					editoptions: {value: 'true:false', defaultValue: 'false'}
+				} ],
+				rownumbers : true,// 添加左侧行号
+				altRows:true,//设置为交替行表格,默认为false
+				// sortname:'createDate',
+				// sortorder:'asc',
+				viewrecords : true,// 是否在浏览导航栏显示记录总数
+				rowNum : 500,// 每页显示记录数
+				// rowTotal:2000,
+				rowList : [ 15, 20, 25,500 ],// 用于改变显示行数的下拉列表框的元素数组。
+				loadonce : true,
+				multiselect : true,
+				gridview : true,
+				cellEdit : true,
+				viewrecords : true,		
+				// 定义了单元格内容保存位置
+				cellsubmit : 'clientArray',// 单元格提交方法，数据保存在客户端。不需设置url:""
+				jsonReader : {
+					root : "productionList",
+					repeatitems : false
+				},
+				pager : $('#planPager')
+			});
 
-placeOrder = function() {
-	var jsonData = $("#proTable").jqGrid("getRowData");
+};
+
+generatePlan = function() {
+	var jsonData = $("#planTable").jqGrid("getRowData");
 	//jsonData = JSON.stringify(jsonData);
+	createNewFieldToForm("data_form", "order");
 	/*
 	 * createNewFieldToForm("data_form", "dataJson");
 	 * 
@@ -230,9 +385,9 @@ placeOrder = function() {
 	 * document.data_form.dataJson.value = JSON.stringify(jsonData);
 	 */
 	// document.stock_form.warehousingDate.value = JSON.stringify(jsonData);
-	createNewFieldToForm("data_form", "jsonData");
-	document.data_form.jsonData.value = JSON.stringify(jsonData);
-	document.data_form.action = "ordermanagement!addOrder";
+	document.data_form.order.value = document.getElementById("orderNum").value;
+	document.data_form.dataJson.value = JSON.stringify(jsonData);
+	document.data_form.action = "productionList!insertProOrder";
 	document.data_form.method = "post";
 	document.data_form.submit();
 };
@@ -248,153 +403,4 @@ function createNewFieldToForm(FormId, FieldId) {
 		newItem.value = " ";
 		document.getElementById(FormId).appendChild(newItem);
 	}
-};
-
-onOrderLoad = function(){
-	$("#fromDate").datepicker({
-		changeMonth : true,
-		changeYear : true,
-		dateFormat : "yy/mm/dd"
-	});
-	$("#fromDate").val(getSystemData());
-	
-	$("#toDate").datepicker({
-		changeMonth : true,
-		changeYear : true,
-		dateFormat : "yy/mm/dd"
-	});
-	$("#toDate").val(getSystemData());
-	onOrderSearch();
-}
-
-onOrderSearch = function() {
-//	$("#partResult").show();
-//	var partType = document.getElementById("partType").value;
-//	var partCode = document.getElementById("partCode").value;
-//	var query = "partCode=" + partCode + "&partType=" + partType;
-	var dateType = document.getElementById("dateType").value;
-	var fromDate = document.getElementById("fromDate").value;
-	var toDate = document.getElementById("toDate").value;
-	var orderNum = document.getElementById("orderNum").value;
-	var customer = document.getElementById("customer").value;
-	var sales = document.getElementById("sales").value;
-	var query = "dateType=" + dateType + "&orderNum=" + orderNum
-	+"&toDate=" + toDate + "&fromDate=" + fromDate
-	+"&customer=" + customer + "&sales=" + sales
-	$("#orderTable").jqGrid('GridUnload');
-	$("#orderTable").jqGrid({
-
-		onSelectRow: function(id){ 
-			   if(id && id!==lastSel){ 
-				  jQuery('#orderTable').restoreRow(lastSel); 
-				  lastSel=id; 
-			   } 
-			   var rowData = $("#orderTable").jqGrid("getRowData",id);//
-			   var expendCode= rowData.orderNum;
-			   onExpend(expendCode);
-			},
-		url : "ordersearch.action?"+query,
-		datatype : "json", // 数据来源，本地数据
-		mtype : "POST",// 提交方式
-		height : 120,// 高度，表格高度。可为数值、百分比或'auto'
-		width : 600,// 这个宽度不能为百分比
-		autowidth : true,// 自动宽
-		colNames : [ '订单号', '交货时间', '要求完成时间','状态' ],
-		colModel : [
-		// {name:'id',index:'id', width:'10%', align:'center' },
-
-		{
-			name : 'orderNum',
-			index : 'orderNum',
-			width : '25%',
-			align : 'left'
-		}, {
-			name : 'deliveryDate',
-			index : 'deliveryDate',
-			width : '30%',
-			align : "left"
-		}, {
-			name : 'dueDate',
-			index : 'dueDate',
-			width : '15%',
-			align : "center"
-		},  {
-			name : 'planned',
-			index : 'planned',
-			width : '15%',
-			align : "left"
-		} ],
-		// altRows:true,//设置为交替行表格,默认为false
-		// sortname:'createDate',
-		// sortorder:'asc',
-		viewrecords : true,// 是否在浏览导航栏显示记录总数
-		rowNum : 15,// 每页显示记录数
-		// rowTotal:2000,
-		rowList : [ 15, 20, 25 ],// 用于改变显示行数的下拉列表框的元素数组。
-		loadonce : true,
-		gridview : true,
-		multiselect : true,
-		jsonReader : {
-			root : "salesOrderList",
-			repeatitems : false
-		},
-		pager : $('orderPager')
-	});
-
-};
-
-onExpend = function(partNum) {
-	 $("#orderItemTable").jqGrid('GridUnload');
-	$("#orderItemTable").jqGrid({
-       url:"orderList.action?OrderNum="+partNum,
-       datatype:"json", //数据来源，本地数据
-       mtype:"POST",//提交方式
-       height:420,//高度，表格高度。可为数值、百分比或'auto'
-       //width:1000,//这个宽度不能为百分比
-       autowidth:true,//自动宽
-       colNames:['物料号', '物料名称','零件类型','价格','数量'],
-       colModel:[
-           //{name:'id',index:'id', width:'10%', align:'center' },
-           
-           {name:'partCode',index:'partCode', width:'15%',align:'left'},
-           {name:'partName',index:'partName', width:'20%', align:"left"},
-           {name:'partType',index:'partType', width:'10%',align:"center"},
-           {name:'price',index:'partType', width:'20%',align:"center"},
-           {name:'quantity',index:'quantity', width:'15%', align:"left", sortable:false}
-           
-       ],
-       rownumbers:true,//添加左侧行号
-       //altRows:true,//设置为交替行表格,默认为false
-       //sortname:'createDate',
-       //sortorder:'asc',
-       viewrecords: true,//是否在浏览导航栏显示记录总数
-       rowNum:15,//每页显示记录数
-//       rowTotal:2000,
-       rowList:[15,20,25],//用于改变显示行数的下拉列表框的元素数组。
-       loadonce:true,
-       gridview: true,  
-       viewrecords: true,
-       jsonReader:{
-           root:"salesOrderItems",
-           repeatitems : false
-       },
-       pager:$('#orderItemPager')
-   });
-};
-
-mprOrder = function() {
-	var grs = jQuery("#orderTable").jqGrid('getGridParam', 'selarrrow');
-	var orderNum ="";
-	if (grs.length > 0)
-		 $.each(grs,function(n,value) {  
-				var rowData = $("#orderTable").jqGrid("getRowData",value);
-				orderNum=orderNum+rowData.orderNum+","
-		 });
-	else
-		alert("请选择要运算的订单！");
-	createNewFieldToForm("data_form", "orderNum");
-	document.data_form.orderNum.value = orderNum;
-	document.data_form.action = "ordersearch!mprCal";
-	document.data_form.method = "post";
-	document.data_form.submit();
 };

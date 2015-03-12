@@ -133,6 +133,7 @@ public class DaoLogAspect {
 				}
 
 			}
+			e.printStackTrace();
 			GenericException ex = new GenericException("DAO", idStr + e.getMessage(), e);
 			afterThrowing(jp, ex);
 			throw ex;

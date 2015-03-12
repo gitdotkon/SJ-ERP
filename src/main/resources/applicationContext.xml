@@ -66,6 +66,7 @@
 				<value>com.deere.model.Customer</value>
 				<value>com.deere.model.SalesOrderItem</value>
 				<value>com.deere.model.MPRModel</value>
+				<value>com.deere.model.dto.ProductionDto</value>
 			</list>
 		</property>
 
@@ -149,6 +150,9 @@
 	</bean>
 	<bean id="customerDao" class="com.deere.dao.impl.GenericDaoHibernateImpl" parent="daoTemplate">
 		<constructor-arg value="com.deere.model.Customer" />
+	</bean>
+	<bean id="proDtoDao" class="com.deere.dao.impl.GenericDaoHibernateImpl" parent="daoTemplate">
+		<constructor-arg value="com.deere.model.dto.ProductionDto" />
 	</bean>
 
 	<!-- Service component -->
