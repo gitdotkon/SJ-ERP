@@ -39,7 +39,7 @@
 		</action>
 		
 		
-		<action name="productionplan">
+		<action name="productionplan" class="com.deere.manufacture.action.ProductionAction" method="listOrderNum">
 			<result>manufacture/productionplan.jsp</result>
 		</action>
 		<action name="ordermanagement" class="com.deere.sales.action.SalesOrderAction">

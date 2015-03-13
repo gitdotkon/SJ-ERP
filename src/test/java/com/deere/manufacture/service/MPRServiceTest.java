@@ -56,4 +56,12 @@ public class MPRServiceTest {
 		}
 //		2-(6)923(B)
 	}
+	
+	@Test
+	public void testListOrder(){
+		List<String> soList= mpr.getUnplannedOrder();
+		for (String string : soList) {
+			System.out.println(string);
+		}
+	}
 }

@@ -119,10 +119,10 @@ public class SalesOrderAction extends BaseAction {
 	
 	
 	public String addOrder() throws GenericException, ParseException{
-		SalesOrder salesOrder = new SalesOrder();
+		SalesOrder salesOrder = new SalesOrder(orderNum);
 		salesOrder.setDeliveryDate(sdf.parse(deliveryDate));
 		salesOrder.setDueDate(sdf.parse(dueDate));
-		salesOrder.setOrderNum(orderNum);
+//		salesOrder.setOrderNum(orderNum);
 		List<SalesOrderItem> soItemList = Utils.json2Object(this.getJsonData(), SalesOrderItem.class);
 		for (SalesOrderItem salesOrderItem : soItemList) {
 			salesOrder.addOrderItem(salesOrderItem);

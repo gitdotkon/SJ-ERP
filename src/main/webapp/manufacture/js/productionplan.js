@@ -269,7 +269,7 @@ onExpend = function(partNum) {
 
 
 loadPlan = function() {
-
+	
 	$("#planTable").jqGrid('GridUnload');
 	$("#planTable").jqGrid(
 			{
@@ -282,7 +282,7 @@ loadPlan = function() {
 					   var expendCode= rowData.partCode;
 					   onExpend(expendCode);
 					},
-				url : "productionList.action",
+				url : "productionList.action?selectedOrder="+$("#orderList").val(),
 				datatype : "json", // 数据来源，本地数据
 				mtype : "POST",// 提交方式
 				height : 420,// 高度，表格高度。可为数值、百分比或'auto'
@@ -404,3 +404,9 @@ function createNewFieldToForm(FormId, FieldId) {
 		document.getElementById(FormId).appendChild(newItem);
 	}
 };
+
+function getOrder(){
+	var a= $("#orderList").val();
+	$("#orderNum").val=a;
+};
+

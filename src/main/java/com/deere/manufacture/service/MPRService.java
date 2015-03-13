@@ -1,5 +1,6 @@
 package com.deere.manufacture.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +35,7 @@ public class MPRService {
 
 	@Autowired
 	private GenericDao<GenericPart> partDao;
+
 
 	@Autowired
 	private GenericDao<MPRModel> MPRDao;
@@ -147,4 +149,18 @@ public class MPRService {
 		return MPRDao.query(query);
 //		return null;
 	}
+	
+	public List<String> getUnplannedOrder(){
+//		String query="from MPRModel where partCode='"+partCode+"'";
+		String query ="select distinct new com.deere.model.SalesOrder(salesOrder.orderNum)"
+				+ " from MPRModel where mprType=0";
+		List<SalesOrder> soList= SODao.query(query);
+		List<String> ordrNumList= new ArrayList<String>();
+		for (SalesOrder salesOrder : soList) {
+			ordrNumList.add(salesOrder.getOrderNum());
+		}
+		return ordrNumList;
+	}
+	
+	
 }

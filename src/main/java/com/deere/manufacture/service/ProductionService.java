@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.deere.base.util.StringUtil;
 import com.deere.dao.GenericDao;
 import com.deere.inventory.service.InventoryService;
 import com.deere.model.GenericPart;
@@ -71,7 +72,7 @@ public class ProductionService {
 		return productionList;
 	}*/
 	
-	public List<ProductionDto> productionPlan(){
+	public List<ProductionDto> productionPlan(String selectedOrder){
 
 	/*	
 		String query = "select new com.deere.model.dto.ProductionDto(a.partCode,partName,partType,a.qty)"
@@ -79,9 +80,17 @@ public class ProductionService {
 		+ " where a.partCode=GenericPart.partCode";*/
 		
 		String query ="select new com.deere.model.dto.ProductionDto(mm.part,SUM(mm.requiredQty))"
-				+ " from MPRModel mm where mm.mprType=0 group by mm.part.partCode";
+				+ " from MPRModel mm where mm.mprType=0";
 		
-		List<ProductionDto> dtoList= proDtoDao.query(query);
+		StringBuffer buffer = new StringBuffer(query);
+		
+		if ((null != selectedOrder) && !"".equals(selectedOrder)) 
+			buffer.append("  and mm.salesOrder.orderNum in " + StringUtil.getStringSql(selectedOrder));
+			
+		buffer.append(" group by mm.part.partCode");
+		
+		System.out.print(buffer.toString());
+		List<ProductionDto> dtoList= proDtoDao.query(buffer.toString());
 		for (ProductionDto proDto : dtoList) {
 			Inventory inv =inventoryDao.findById(proDto.getPartCode());
 			if(inv==null) 
