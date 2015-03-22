@@ -17,7 +17,7 @@
 				<a href="productionplan"><i class="glyphicon glyphicon-check"></i> 生产计划</a>
 			</li>
 			<li>
-				<a href="search"><i class="glyphicon glyphicon-check"></i> 零件查询1</a>
+				<a href="search"><i class="glyphicon glyphicon-check"></i> 零件查询</a>
 			</li>
 			<li>
 				<a href="stockmanager"><i class="glyphicon glyphicon-cog"></i>仓库管理</a>
