@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>查询1</title>
+<title>查询</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui.min-jd.css" type="text/css" /> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ui.jqgrid.css" type="text/css" /> 
 <script type='text/javascript' src="${pageContext.request.contextPath}/js/jquery.jqGrid.min.js"></script>
