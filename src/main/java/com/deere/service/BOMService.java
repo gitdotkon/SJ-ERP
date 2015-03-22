@@ -219,7 +219,7 @@ public List<PartDto> searchMachine(String partCode,String partIndex,int pagesize
 
 	
 	private File[] LoadFiles(){
-		File folder = new File("D:\\dummy");
+		File folder = new File("E:\\dummy");
 		File[] fList =folder.listFiles(new ExcelFileFilter());
 		return fList;
 //		folder.lis

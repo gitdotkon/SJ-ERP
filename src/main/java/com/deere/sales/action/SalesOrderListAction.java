@@ -10,11 +10,16 @@ import com.deere.model.GenericPart;
 import com.deere.model.SalesOrderItem;
 import com.deere.model.dto.SalesOrderDto;
 import com.deere.sales.service.SalesOrderService;
-
+@Deprecated
 public class SalesOrderListAction extends BaseAction {
 	@Autowired
 	private SalesOrderService soService;
+	
+	private List<SalesOrderDto> salesOrderItems = new ArrayList<SalesOrderDto>();
 
+	/**
+	 * 订单号
+	 */
 	private String orderNum;
 	
 
@@ -26,7 +31,6 @@ public class SalesOrderListAction extends BaseAction {
 		this.orderNum = orderNum;
 	}
 
-	private List<SalesOrderDto> salesOrderItems = new ArrayList<SalesOrderDto>();
 
 	public List<SalesOrderDto> getSalesOrderItems() {
 		return salesOrderItems;
