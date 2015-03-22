@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.deere.model.GenericPart;
 import com.deere.model.json.BomJsonDto;
 import com.deere.service.BOMService;
-
+@Deprecated
 public class BomListAction extends BaseAction{
 
 	/**

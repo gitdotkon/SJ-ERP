@@ -97,7 +97,7 @@ public class MPRService {
 			parentMap.put(partCode, quantity);
 		}
 	}
-
+	
 	public Map<String, Integer> getMPRforOrder(List<SalesOrderItem> SOItemList) {
 		Map<String, Integer> mprList = new HashMap<String, Integer>();
 

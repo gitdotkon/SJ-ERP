@@ -30,7 +30,7 @@ public class UserServiceTest {
 //		fail("Not yet implemented");
 		User user = new User();
 		user.setPassword("password");
-		user.setUserName("testdotkon");
+		user.setUserName("system");
 		userService.createOrUpdateUser(user);
 		User user2 = new User();
 		user2.setPassword("password");
