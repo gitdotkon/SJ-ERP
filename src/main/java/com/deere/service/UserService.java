@@ -13,9 +13,14 @@ public class UserService {
 	
 	public Boolean verifyUser(User user){
 		String cypherPass = HashCrypt.getDigestHash(user.getPassword());
-		String realPass= userDao.findById(user.getUserName()).getPassword();
-		if(realPass.equals(cypherPass))
-			return true;
+		try {
+			
+			String realPass= userDao.findById(user.getUserName()).getPassword();
+			if(realPass.equals(cypherPass))
+				return true;
+		} catch (Exception e) {
+			return false;
+		}
 		return false;
 	}
 	
