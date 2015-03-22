@@ -74,7 +74,7 @@ public class ExBOMTree {
 			cPart.setPartType("电气");
 		else if(partType.equals(""))
 			cPart.setPartType("总成");
-		
+		System.out.println("test");
 		return cPart;
 	}
 	public void setChild(GenericPart child) {

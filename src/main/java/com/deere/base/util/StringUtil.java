@@ -31,4 +31,10 @@ public class StringUtil {
         return digestChars;
     }
     
+    
+    public static String getStringSql(String str){
+    	String rStr= str.replace(",", "','");
+    	rStr="('"+rStr+"')";
+    	return rStr;
+    }
 }

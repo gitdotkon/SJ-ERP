@@ -11,6 +11,7 @@ import com.deere.common.Utils;
 import com.deere.manufacture.service.MPRService;
 import com.deere.manufacture.service.ProductionService;
 import com.deere.model.MPRModel;
+import com.deere.model.SalesOrder;
 import com.deere.model.dto.ProductionDto;
 import com.deere.model.dto.SalesOrderDto;
 
@@ -31,9 +32,37 @@ public class ProductionAction extends BaseAction {
 	private String partCode;
 	
 	private List<ProductionDto> productionList = Collections.EMPTY_LIST;
+	private List<String> orderNumList= Collections.EMPTY_LIST;
 	
 	private List<SalesOrderDto> orderList = new ArrayList<SalesOrderDto>();
 	
+	private String selectedOrder;
+	
+	
+	
+	
+	
+	
+
+	public String getSelectedOrder() {
+		return selectedOrder;
+	}
+
+
+	public void setSelectedOrder(String selectedOrder) {
+		this.selectedOrder = selectedOrder;
+	}
+
+
+	public List<String> getOrderNumList() {
+		return orderNumList;
+	}
+
+
+	public void setOrderNumList(List<String> orderNumList) {
+		this.orderNumList = orderNumList;
+	}
+
 	private String order;
 	
 	
@@ -90,12 +119,18 @@ public class ProductionAction extends BaseAction {
 		this.partCode = partCode;
 	}
 
+	public String listOrderNum() throws Exception{
+		this.setOrderNumList(mprService.getUnplannedOrder());
+		return SUCCESS;
+	}
 
 	@Override
 	public String execute() throws Exception {
 		
 		// TODO Auto-generated method stub
-		this.setProductionList(proService.productionPlan());
+
+		System.out.println(selectedOrder);
+		this.setProductionList(proService.productionPlan(selectedOrder));
 		
 //		this.setProductionList(proService.genProOrder(partList));
 		return SUCCESS;

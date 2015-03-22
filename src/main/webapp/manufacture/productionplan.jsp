@@ -21,20 +21,21 @@
 <script type="text/javascript" src="js/bootstrap-3.0.3.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
 
-<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
+<link rel="stylesheet" href="css/bootstrap-multiselect.css"
+	type="text/css" />
 
- 
+
 
 
 <script type="text/javascript" language="javascript">
 	//     var selBtn = 0;
 	//     var nodeId = 0;
 	$(document).ready(function() {
-	 	$('.excample1').multiselect({
-                        includeSelectAllOption: true,
-                        selectAllValue: '.excample1'
-                    });
-		loadPlan();
+		$('#orderList').multiselect({
+		includeSelectAllOption: true,
+			        	enableFiltering: true,
+			        	maxHeight: 150
+			        	});
 
 	});
 </script>
@@ -45,25 +46,14 @@
 		</h1>
 
 
-	<form action="" name="data_form" id="data_form" class="form-inline"
+		<form action="" name="data_form" id="data_form" class="form-inline"
 			role="form">
-			<select class="excample1" multiple="multiple">
-			<s:set name="list" value="{'a','b','c','d'}"></s:set>
-		        <s:iterator var="ent" value="#request.list" status="statu">           
-
-				<option value="#ent"><s:property value="#ent"/></option>
-				</s:iterator>
-		         </select>
-
-			<select class="excample1" multiple="multiple">
-			   <option value="cheese">Cheese</option>
-			   <option value="tomatoes">Tomatoes</option>
-			   <option value="mozarella">Mozzarella</option>
-			   <option value="mushrooms">Mushrooms</option>
-			   <option value="pepperoni">Pepperoni</option>
-			   <option value="onions">Onions</option>
-			 </select>
 			
+			
+			
+			<s:select name="orderList" id="orderList" list="orderNumList" theme="simple" multiple="true" headerKey="00" headerValue="00"></s:select>
+			
+		
 			<div class="form-group">
 				<div class="input-group" style="width:200px">
 
@@ -95,57 +85,51 @@
 
 					<div class="input-group" style="width:200px">
 						<span class="input-group-addon">销售：</span> <input type="text"
-							class="form-control" id="sales" name="sales"
-							style="width:100px"> <span class="input-group-btn">
-
-						</span>
+							class="form-control" id="sales" name="sales" style="width:100px">
+						<span class="input-group-btn"> </span>
 					</div>
 
 				</div>
 			</div>
-			<br><br>
+			<br> <br>
 			<div class="form-group">
-				
-			
-				
+
+
+
 
 				<div class="input-group" style="width:400px">
-				<label class="sr-only">日期类型</label> <select id="dateType"
-					class="form-control" name="dateType">
-					<option value=deliveryDate>要求发货时间</option>
-					<option value=dueDate>要求完成时间</option>
-				</select>
-					<span class="input-group-addon">从：</span> <input type="text"
+					<label class="sr-only">日期类型</label> <select id="dateType"
+						class="form-control" name="dateType">
+						<option value=deliveryDate>要求发货时间</option>
+						<option value=dueDate>要求完成时间</option>
+					</select> <span class="input-group-addon">从：</span> <input type="text"
 						class="form-control" id="fromDate" name="fromDate"
-						style="width:100px"> 
-					<span class="input-group-addon">到：</span> 
-					<input type="text"
-						class="form-control" id="toDate" name="toDate"
+						style="width:100px"> <span class="input-group-addon">到：</span>
+					<input type="text" class="form-control" id="toDate" name="toDate"
 						style="width:100px">
 				</div>
 
 
 			</div>
 			<button type="button" class="btn btn-default"
-							onClick="onOrderSearch() ">查询</button>
-							
-							<button type="button" class="btn btn-default"
-							onClick="mprOrder() ">运算</button>
-			
-			
-			
-			
-							
-			
-			
+				onClick="loadPlan() ">查询</button>
+
+			<button type="button" class="btn btn-default" onClick="getOrder()">运算</button>
+
+
+
+
+
+
+
 		</form>
 
 
 		<table id="planTable" class="table table-striped table-condensed"></table>
 		<!-- jqGrid 分页 div gridPager -->
 		<div id="planPager"></div>
-		
-		
+
+
 		<table id="orderItemTable" class="table table-striped table-condensed"></table>
 		<!-- jqGrid 分页 div gridPager -->
 		<div id="orderPager"></div>

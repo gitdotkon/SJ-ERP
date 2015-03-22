@@ -114,6 +114,14 @@ public class SalesOrder extends GenericModel{
     public void removeOrderItem(SalesOrderItem orderitem) {    
         orderitem.setSalesOrder(null);    
         this.orderItems.remove(orderitem);    
-    } 
+    }
+    public SalesOrder(){
+    	
+    }
+	public SalesOrder(String orderNum) {
+		this.setOrderNum(orderNum);
+	} 
 	
+    
+    
 }

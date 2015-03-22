@@ -11,13 +11,13 @@
 	<li class="nav-header">
 		<ul class="list-unstyled collapse in">
 			<li>
-				<a href="dataimport.jsp"><i class="glyphicon glyphicon-check"></i> Date Import</a>
+				<a href="ordermanagement"><i class="glyphicon glyphicon-check"></i> 订单管理</a>
 			</li>
 			<li>
-				<a href="report.jsp"><i class="glyphicon glyphicon-check"></i> Report</a>
+				<a href="productionplan"><i class="glyphicon glyphicon-check"></i> 生产计划</a>
 			</li>
 			<li>
-				<a href="search"><i class="glyphicon glyphicon-check"></i> 零件查询</a>
+				<a href="search"><i class="glyphicon glyphicon-check"></i> 零件查询1</a>
 			</li>
 			<li>
 				<a href="stockmanager"><i class="glyphicon glyphicon-cog"></i>仓库管理</a>

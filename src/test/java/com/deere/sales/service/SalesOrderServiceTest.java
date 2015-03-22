@@ -37,9 +37,9 @@ public class SalesOrderServiceTest {
 	
 	@Test
 	public void testGenerateOrder() {
-		SalesOrder SO =  new SalesOrder();
+		SalesOrder SO =  new SalesOrder("huaxingNO.1");
 //		SO.setCustomer(new Customer("huaxing","huangguoxiong","147654452","guangdong"));
-		SO.setOrderNum("huaxingNO.1");
+//		SO.setOrderNum();
 		SO.setOrderDate(new Date());
 		SO.setDeliveryDate(new Date());
 		SO.setNotes("SEW");
