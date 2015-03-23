@@ -232,7 +232,7 @@ placeOrder = function() {
 	// document.stock_form.warehousingDate.value = JSON.stringify(jsonData);
 	createNewFieldToForm("data_form", "jsonData");
 	document.data_form.jsonData.value = JSON.stringify(jsonData);
-	document.data_form.action = "ordermanagement!addOrder";
+	document.data_form.action = "salesOrderAction!addOrder.action";
 	document.data_form.method = "post";
 	document.data_form.submit();
 };
@@ -293,7 +293,7 @@ onOrderSearch = function() {
 			   var expendCode= rowData.orderNum;
 			   onExpend(expendCode);
 			},
-		url : "ordersearch.action?"+query,
+		url : "/main/salesOrderAction!salesOrderSearch.action?"+query,
 		datatype : "json", // 数据来源，本地数据
 		mtype : "POST",// 提交方式
 		height : 120,// 高度，表格高度。可为数值、百分比或'auto'
@@ -346,7 +346,7 @@ onOrderSearch = function() {
 onExpend = function(partNum) {
 	 $("#orderItemTable").jqGrid('GridUnload');
 	$("#orderItemTable").jqGrid({
-       url:"orderList.action?OrderNum="+partNum,
+       url:"salesOrderAction!orderList.action?OrderNum="+partNum,
        datatype:"json", //数据来源，本地数据
        mtype:"POST",//提交方式
        height:420,//高度，表格高度。可为数值、百分比或'auto'

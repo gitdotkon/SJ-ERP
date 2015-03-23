@@ -3,15 +3,12 @@
 <struts>
 	<constant name="struts.i18n.encoding" value="utf-8"></constant>
 	<package name="common" extends="json-default" abstract="true">
-		
 		<result-types>
 		    <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
 		</result-types>
-		
 		<interceptors>
 			<interceptor name="loginChecker" class="com.deere.intercept.SessionCheckInterceptor"/>
             <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>    
-            			
 			<interceptor-stack name="sessionStack">
 				<interceptor-ref name="loginChecker" >
 					<param name="sessionAttribute">user</param>
@@ -19,7 +16,6 @@
 				</interceptor-ref>	
 				<interceptor-ref name="defaultStack" />	
 			</interceptor-stack>			
-			
 			<interceptor-stack name="commonStack">
 				<interceptor-ref name="sessionStack" />
 				<!-- Token -->
@@ -33,7 +29,6 @@
 				</interceptor-ref>				
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
-
 		</interceptors>
 
 		<default-interceptor-ref name="commonStack" />
@@ -49,6 +44,5 @@
 		<global-exception-mappings>
 			<exception-mapping result="exception" exception="java.lang.Exception"/>
 		</global-exception-mappings>
-			
 	</package>
 </struts>

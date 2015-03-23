@@ -4,134 +4,23 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-	<include file="struts-common.xml" />
+
+	<include file="struts-default.xml" />
+	<include file="struts/struts-common.xml" />
+	<include file="struts/struts-main.xml" />
+	
 	<constant name="struts.devMode" value="true" />
+    <constant name="struts.action.extension" value="action,do"></constant>
 
-	<package name="main" extends="struts-default">
-
-		<action name="login_action" method="login"
-			class="com.deere.action.LoginAction">
-			<result name="login"> login.jsp </result>
-			<result name="success">dataimport.jsp</result>
+	<package name="default" extends="struts-default">
+		<action name="loginAction!*" method="{1}" class="com.deere.action.LoginAction">
+			<result name="login">/login.jsp</result>
+			<result name="logout" type="redirectAction">https://registration.deere.com/servlet/LogOutServlet</result>
+			<result name="success">/dataimport.jsp</result>
 			<result name="reurl" type="redirect">${methodName}</result>
 		</action>
-
-		<action name="logout_action" method="logout"
-			class="com.deere.action.LoginAction">
-			<result name="logout" type="redirectAction">https://registration.deere.com/servlet/LogOutServlet
-			</result>
-		</action>
-
-	</package>
-
-	<package name="default" extends="common" namespace="/">
-		<default-interceptor-ref name="sessionStack" />
-
 		<action name="dashboard">
-			<result>login_action</result>
+			<result type="chain">loginAction!login</result>
 		</action>
-		
-		<action name="search">
-			<result>search.jsp</result>
-		</action>
-		<action name="production">
-			<result>manufacture/production.jsp</result>
-		</action>
-		
-		
-		<action name="productionplan" class="com.deere.manufacture.action.ProductionAction" method="listOrderNum">
-			<result>manufacture/productionplan.jsp</result>
-		</action>
-		<action name="ordermanagement" class="com.deere.sales.action.SalesOrderAction">
-			<result>manufacture/salesorder.jsp</result>
-			
-		</action>
-		
-		<action name="order" >
-			<result>manufacture/searchorder.jsp</result>
-		</action>
-		
-		<action name="mpr" class="com.deere.sales.action.SalesOrderListAction" >
-			<result name="success">manufacture/searchorder.jsp</result>
-		</action>
-		
-		<action name="mprCal" class="com.deere.sales.action.SalesOrderSearchAction" method="mprCal" >
-			<result name="success">manufacture/searchorder.jsp</result>
-		</action>
-		
-		<action name="ordersearch" class="com.deere.sales.action.SalesOrderSearchAction">
-			<result name="success" type="json">
-				<param name="root">salesOrderList</param>
-			</result>
-		</action>
-		
-		<action name="orderList" class="com.deere.sales.action.SalesOrderListAction">
-			<result name="success" type="json">
-				<param name="root">salesOrderItems</param>
-			</result>
-		</action>
-		
-		
-		<action name="stockmanager" class="com.deere.inventory.action.WarehousingAction">
-			<result name="success">manufacture/addstock.jsp</result>
-			
-			<result name="return" type="json">
-				<param name="root">partList</param>
-			
-			</result>
-		</action>
-		
-		
-		
-
-		<action name="searchMachine" class="com.deere.action.DataSearchAction">
-			<result name="success" type="json">
-				<param name="root">partList</param>
-			
-			</result>
-		</action>
-		
-		<action name="bomExpend" class="com.deere.action.BomExpendAction">
-			<result name="success" type="json">
-				<param name="root">bomTreeList</param>
-			
-			</result>
-		</action>	
-		<action name="bomList" class="com.deere.action.BomListAction">
-			<result name="success" type="json">
-				<param name="root">bomJson</param>
-			
-			</result>
-		</action>	
-		
-		
-		<action name="searchInv" class="com.deere.inventory.action.InventoryAction">
-			<result name="success" type="json">
-				<param name="root">partList</param>
-			
-			</result>
-		</action>	
-		
-		<action name="productionList" class="com.deere.manufacture.action.ProductionAction">
-			<result name="success" type="json">
-				<param name="root">productionList</param>
-			</result>
-		</action>
-		
-		<action name="listOrder" class="com.deere.manufacture.action.ProductionAction" method="listOrder">
-			<result name="success" type="json">
-				<param name="root">orderList</param>
-			</result>
-		</action>
-		
-		<action name="loadPreview" class="com.deere.action.DataImportAction">
-			<result name="preview" type ="json">/datapreview.jsp</result>
-				<param name="root">invList</param>
-			<result name="success">/datapreview.jsp</result>
-			<result name="input">/datapreview.jsp</result>
-			<result name="invalid.token">/datapreview.jsp</result>
-		</action>
-		
 	</package>
-	
 </struts>

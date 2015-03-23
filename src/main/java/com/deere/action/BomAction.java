@@ -88,7 +88,7 @@ public class BomAction extends BaseAction{
 			bomTreeList.add(bomDto);
 		}
 		System.out.println("expend" + bomTreeList.size());
-		return SUCCESS;
+		return "bomExpend";
 	}
 
 	/**

@@ -1,8 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib uri="/WEB-INF/taglib/sitemesh-decorator.tld"
-	prefix="decorator"%>
-<%@ taglib uri="/WEB-INF/taglib/sitemesh-page.tld" prefix="page"%>
+<%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>

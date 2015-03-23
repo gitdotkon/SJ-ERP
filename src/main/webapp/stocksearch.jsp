@@ -1,27 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib uri="/WEB-INF/taglib/sitemesh-decorator.tld"
-	prefix="decorator"%>
-<%@ taglib uri="/WEB-INF/taglib/sitemesh-page.tld" prefix="page"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<base href="<%=basePath %>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>查询</title>
+<title>查询ddddd${ctx }====</title>
 <!-- <link rel="stylesheet" href="css/jquery-ui.min-jd.css" type="text/css" /> 
 <link rel="stylesheet" href="css/ui.jqgrid.css" type="text/css" />  -->
-<link href="css/tip-yellowsimple-jd.css" type="text/css" rel="stylesheet"/>
-<link href="css/jquery-ui.min-jd.css" type="text/css" rel="stylesheet"/>
-<link href="css/ui.jqgrid.css" type="text/css" rel="stylesheet"/>
-<link href=css/chinapathways.css" type="text/css" rel="stylesheet"/>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/js/treegrid/TreeGrid.css" type="text/css" /> 
-<script type='text/javascript' src="${pageContext.request.contextPath}/js/jquery.jqGrid.min.js"></script>
-<script type='text/javascript' src="${pageContext.request.contextPath}/js/search.js"></script>
-<script type='text/javascript' src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+<link href="${ctx }/css/tip-yellowsimple-jd.css" type="text/css" rel="stylesheet"/>
+<link href="${ctx }/css/jquery-ui.min-jd.css" type="text/css" rel="stylesheet"/>
+<link href="${ctx }/css/ui.jqgrid.css" type="text/css" rel="stylesheet"/>
+<link href="${ctx }/css/chinapathways.css"" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="${ctx }/js/treegrid/TreeGrid.css" type="text/css" /> 
+<script type='text/javascript' src="${ctx }/js/jquery.jqGrid.min.js"></script>
+<script type='text/javascript' src="${ctx }/js/search.js"></script>
+<script type='text/javascript' src="${ctx }/aaaaaaa/js/jquery-ui.min.js"></script>
 <%-- <script type='text/javascript' src="${pageContext.request.contextPath}/js/jquery-1.3.2.min.js"></script>
- --%><script type='text/javascript' src="${pageContext.request.contextPath}/js/grid.locale-cn.js"></script>
-<script type='text/javascript' src="${pageContext.request.contextPath}/js/treegrid/TreeGrid.js"></script>
+ --%><script type='text/javascript' src="js/grid.locale-cn.js"></script>
+<script type='text/javascript' src="js/treegrid/TreeGrid.js"></script>
 
 
 <script type="text/javascript" language="javascript">
@@ -34,8 +35,8 @@
   	
 </script>
 </head>
-<body>
-<s:label>零件类型</s:label>
+<body><c:out value="${ctx}"></c:out>===
+<s:label>零件类型11111</s:label>
 <select id="partType" name="partType"  >
 	<option value=0>全部</option>
 	<option value=1>外购</option>

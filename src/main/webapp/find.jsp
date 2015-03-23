@@ -1,18 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib uri="/WEB-INF/taglib/sitemesh-decorator.tld"
-	prefix="decorator"%>
-<%@ taglib uri="/WEB-INF/taglib/sitemesh-page.tld" prefix="page"%>
+<%@ include file="/common/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>查询</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Pager.css" type="text/css" /> 	
-<script type='text/javascript' src="${pageContext.request.contextPath}/js/find/commonpager.js"></script>
-<script type='text/javascript' src="${pageContext.request.contextPath}/js/find/common.tableData.js"></script>
-<script type='text/javascript' src="${pageContext.request.contextPath}/js/find/dataFind.js"></script>
+<link rel="stylesheet" href="${ctx }/css/Pager.css" type="text/css" /> 	
+<script type='text/javascript' src="${ctx }/js/find/commonpager.js"></script>
+<script type='text/javascript' src="${ctx }/js/find/common.tableData.js"></script>
+<script type='text/javascript' src="${ctx }/js/find/dataFind.js"></script>
 <script type="text/javascript" language="javascript">
     var selBtn = 0;
     var nodeId = 0;

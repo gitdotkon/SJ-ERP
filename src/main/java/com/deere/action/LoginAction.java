@@ -9,9 +9,10 @@ import com.deere.service.UserService;
 public class LoginAction extends BaseAction {
 
 	private User user;
-
 	@Autowired
 	private UserService userService;
+	
+	private static final String LOGIN = "login";
 
 	public void setUser(User user) {
 		this.user = user;
@@ -22,13 +23,10 @@ public class LoginAction extends BaseAction {
 	}
 
 	public String login() throws Exception {
-
-		if (userService.verifyUser(user)) {
+		if (null != user && userService.verifyUser(user)) {
 			session.put("user", user.getUserName());
 			return SUCCESS;
 		} else
-			return "login";
-
+			return LOGIN;
 	}
-
 }

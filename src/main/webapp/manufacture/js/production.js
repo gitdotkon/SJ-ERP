@@ -226,7 +226,7 @@ loadPlan = function() {
 	$("#planTable").jqGrid(
 			{
 
-				url : "productionList.action?dataJson=" + jsonData,
+				url : "/main/productionAction!productionList.action?dataJson=" + jsonData,
 				datatype : "json", // 数据来源，本地数据
 				mtype : "POST",// 提交方式
 				height : 120,// 高度，表格高度。可为数值、百分比或'auto'

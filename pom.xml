@@ -28,6 +28,7 @@
 		<poi.version>3.8</poi.version>
 		<sqljdbc4.version>4.0</sqljdbc4.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
+		<jstl.version>1.1.2</jstl.version>
 		<tomcat.app.path>C:\dsm</tomcat.app.path>
 	</properties>
 
@@ -237,6 +238,16 @@
 			<artifactId>sitemesh</artifactId>
 			<version>${sitemesh.version}</version>
 		</dependency>
+		<dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
 	</dependencies>
 
 	<repositories>

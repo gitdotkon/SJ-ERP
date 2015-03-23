@@ -158,7 +158,7 @@ public class SalesOrderAction extends BaseAction {
 	 * @return
 	 * @throws Exception
 	 */
-	public String salesOrderList() throws Exception {
+	public String orderList() throws Exception {
 		List<SalesOrderItem> soItems = soService.findOrderItembyNum(orderNum);
 		for (SalesOrderItem salesOrderItem : soItems) {
 			SalesOrderDto sales = new SalesOrderDto();
@@ -173,7 +173,7 @@ public class SalesOrderAction extends BaseAction {
 			this.getSalesOrderItems().add(sales);
 
 		}
-		return SUCCESS;
+		return "orderList";
 	}
 	/**
 	 * 添加一个订单
@@ -250,7 +250,7 @@ public class SalesOrderAction extends BaseAction {
 		String query = this.genQuery();
 		// String query ="";
 		this.setSalesOrderList(soService.findUnplannedOrder(query));
-		return SUCCESS;
+		return "salesOrderList";
 	}
 
 	/**

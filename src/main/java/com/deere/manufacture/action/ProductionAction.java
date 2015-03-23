@@ -16,7 +16,7 @@ import com.deere.model.dto.ProductionDto;
 import com.deere.model.dto.SalesOrderDto;
 
 public class ProductionAction extends BaseAction {
-	
+
 	/**
 	 * 
 	 */
@@ -24,131 +24,109 @@ public class ProductionAction extends BaseAction {
 
 	@Autowired
 	private ProductionService proService;
-	
+
 	@Autowired
 	private MPRService mprService;
-	
+
 	private String dataJson;
 	private String partCode;
-	
+
 	private List<ProductionDto> productionList = Collections.EMPTY_LIST;
-	private List<String> orderNumList= Collections.EMPTY_LIST;
-	
+	private List<String> orderNumList = Collections.EMPTY_LIST;
+
 	private List<SalesOrderDto> orderList = new ArrayList<SalesOrderDto>();
-	
+
 	private String selectedOrder;
-	
-	
-	
-	
-	
-	
 
 	public String getSelectedOrder() {
 		return selectedOrder;
 	}
 
-
 	public void setSelectedOrder(String selectedOrder) {
 		this.selectedOrder = selectedOrder;
 	}
 
-
 	public List<String> getOrderNumList() {
 		return orderNumList;
 	}
-
 
 	public void setOrderNumList(List<String> orderNumList) {
 		this.orderNumList = orderNumList;
 	}
 
 	private String order;
-	
-	
+
 	public String getOrder() {
 		return order;
 	}
-
 
 	public void setOrder(String order) {
 		this.order = order;
 	}
 
-
 	public String getDataJson() {
 		return dataJson;
 	}
 
-
 	public void setDataJson(String dataJson) {
 		this.dataJson = dataJson;
 	}
-	
-	
-	
+
 	public List<ProductionDto> getProductionList() {
 		return productionList;
 	}
-
 
 	public void setProductionList(List<ProductionDto> productionList) {
 		this.productionList = productionList;
 	}
 
-	
-
-	
-
 	public List<SalesOrderDto> getOrderList() {
 		return orderList;
 	}
-
 
 	public void setOrderList(List<SalesOrderDto> orderList) {
 		this.orderList = orderList;
 	}
 
-	
 	public String getPartCode() {
 		return partCode;
 	}
-
 
 	public void setPartCode(String partCode) {
 		this.partCode = partCode;
 	}
 
-	public String listOrderNum() throws Exception{
+	public String listOrderNum() throws Exception {
 		this.setOrderNumList(mprService.getUnplannedOrder());
 		return SUCCESS;
 	}
 
 	@Override
 	public String execute() throws Exception {
-		
+
 		// TODO Auto-generated method stub
 
 		System.out.println(selectedOrder);
 		this.setProductionList(proService.productionPlan(selectedOrder));
-		
-//		this.setProductionList(proService.genProOrder(partList));
+
+		// this.setProductionList(proService.genProOrder(partList));
 		return SUCCESS;
 	}
-	public String insertProOrder() throws Exception{
-		
-		String a= this.getOrder();
+
+	public String insertProOrder() throws Exception {
+
+		String a = this.getOrder();
 		System.out.println(a);
 		List<ProductionDto> proList = Utils.json2Object(dataJson, ProductionDto.class);
 		proService.generatePlan(proList, order);
 		return SUCCESS;
 	}
-	
-	public String listOrder() throws Exception{
+
+	public String listOrder() throws Exception {
 		System.out.println("test");
-		List<MPRModel> mprList= mprService.listOrderforPart(this.getPartCode());
+		List<MPRModel> mprList = mprService.listOrderforPart(this.getPartCode());
 		for (MPRModel mprModel : mprList) {
-			SalesOrderDto soDto= new SalesOrderDto();
+			SalesOrderDto soDto = new SalesOrderDto();
 			soDto.setSalesOrder(mprModel.getSalesOrder().getOrderNum());
 			soDto.setQuantity(mprModel.getRequiredQty());
 			soDto.setPartCode(mprModel.getPart().toString());
@@ -156,6 +134,6 @@ public class ProductionAction extends BaseAction {
 			soDto.setDueDate(mprModel.getDueDate());
 			this.getOrderList().add(soDto);
 		}
-		return SUCCESS;
+		return "listOrder";
 	}
 }
