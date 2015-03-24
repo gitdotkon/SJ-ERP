@@ -1,3 +1,5 @@
+lastSel=0;
+
 pageLoad = function(){
 	setDatePicker("fromDate");
 	setDatePicker("toDate");
@@ -30,7 +32,7 @@ onOrderSearch = function() {
 			   var expendCode= rowData.orderNum;
 			   onExpend(expendCode);
 			},
-		url : "/main/salesOrderAction!salesOrderSearch.action?"+query,
+		url : "salesOrderAction!salesOrderSearch.action?"+query,
 		datatype : "json", // 数据来源，本地数据
 		mtype : "POST",// 提交方式
 		height : 120,// 高度，表格高度。可为数值、百分比或'auto'
@@ -131,7 +133,7 @@ mprOrder = function() {
 		alert("请选择要运算的订单！");
 	createNewFieldToForm("data_form", "orderNum");
 	document.data_form.orderNum.value = orderNum;
-	document.data_form.action = "ordersearch!mprCal";
+	document.data_form.action = "mrpAction!mrpCal";
 	document.data_form.method = "post";
 	document.data_form.submit();
 };

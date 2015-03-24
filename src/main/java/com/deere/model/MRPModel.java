@@ -9,10 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.deere.model.enums.MPRType;
+import com.deere.model.enums.MRPType;
 
 @Entity
-public class MPRModel extends GenericModel {
+public class MRPModel extends GenericModel {
 	private Integer id;
 	private SalesOrder salesOrder;
 	private GenericPart part;
@@ -20,7 +20,7 @@ public class MPRModel extends GenericModel {
 	/*private Integer invQty;
 	private Integer recommandedQty;
 	private Integer actualQty;*/
-	private MPRType mprType =MPRType.self;
+	private MRPType mprType =MRPType.self;
 	private Date deliveryDate;
 	private Date dueDate;
 	
@@ -55,10 +55,10 @@ public class MPRModel extends GenericModel {
 		this.requiredQty = requiredQty;
 	}
 	
-	public MPRType getMprType() {
+	public MRPType getMprType() {
 		return mprType;
 	}
-	public void setMprType(MPRType mprType) {
+	public void setMprType(MRPType mprType) {
 		this.mprType = mprType;
 	}
 	public Date getDeliveryDate() {

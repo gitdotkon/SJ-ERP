@@ -11,7 +11,7 @@ import com.deere.dao.GenericDao;
 import com.deere.inventory.service.InventoryService;
 import com.deere.model.GenericPart;
 import com.deere.model.Inventory;
-import com.deere.model.MPRModel;
+import com.deere.model.MRPModel;
 import com.deere.model.ProductionOrder;
 import com.deere.model.ProductionOrderItem;
 import com.deere.model.dto.ProductionDto;
@@ -21,7 +21,7 @@ import com.deere.sales.service.SalesOrderService;
 public class ProductionService {
 
 	@Autowired
-	private MPRService mpr;
+	private MRPService mpr;
 	
 	@Autowired
 	private GenericDao<GenericPart> partDao;
@@ -80,7 +80,7 @@ public class ProductionService {
 		+ " where a.partCode=GenericPart.partCode";*/
 		
 		String query ="select new com.deere.model.dto.ProductionDto(mm.part,SUM(mm.requiredQty))"
-				+ " from MPRModel mm where mm.mprType=0";
+				+ " from MRPModel mm where mm.mprType=0";
 		
 		StringBuffer buffer = new StringBuffer(query);
 		

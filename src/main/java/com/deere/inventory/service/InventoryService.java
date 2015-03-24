@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.deere.dao.GenericDao;
 import com.deere.exception.GenericException;
-import com.deere.manufacture.service.MPRService;
+import com.deere.manufacture.service.MRPService;
 import com.deere.model.GenericPart;
 import com.deere.model.Inventory;
 import com.deere.model.Stock;
@@ -38,7 +38,7 @@ public class InventoryService {
 	private GenericDao<Stock> stockDao;
 
 	@Autowired
-	private MPRService mpr;
+	private MRPService mpr;
 
 	/*
 	 * public void importTree(File file, String pattern) throws GenericException
@@ -108,7 +108,7 @@ public class InventoryService {
 			GenericPart part = new GenericPart();
 			BeanUtils.copyProperties(partDto, part);
 			Integer qty = partDto.getQuantity();
-			Map<String, Integer> mprList = mpr.getMPR(part, qty);
+			Map<String, Integer> mprList = mpr.getMRP(part, qty);
 
 			Iterator<String> it = mprList.keySet().iterator();
 			while (it.hasNext()) {

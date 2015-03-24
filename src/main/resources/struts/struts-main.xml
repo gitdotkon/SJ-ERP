@@ -33,13 +33,13 @@
 				<param name="root">salesOrderItems</param>
 			</result>
 		</action>
-		<action name="mpr" class="com.deere.sales.action.SalesOrderListAction">
-			<result name="success">manufacture/searchorder.jsp</result>
+		<action name="mrpAction!*" method="{1}" class="com.deere.manufacture.action.MRPAction">
+			<result name="success" type="chain">productionPlan</result>
 		</action>
 
-		<action name="mprCal" class="com.deere.sales.action.SalesOrderSearchAction" method="mprCal">
+		<!-- <action name="mprCal" class="com.deere.sales.action.SalesOrderSearchAction" method="mprCal">
 			<result name="success">manufacture/searchorder.jsp</result>
-		</action>
+		</action> -->
 
 		<!-- 
 			<action name="ordersearch" class="com.deere.sales.action.SalesOrderSearchAction">

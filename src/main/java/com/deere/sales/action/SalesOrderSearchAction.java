@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.deere.action.BaseAction;
 import com.deere.common.Constants;
-import com.deere.manufacture.service.MPRService;
+import com.deere.manufacture.service.MRPService;
 import com.deere.model.SalesOrder;
 import com.deere.sales.service.SalesOrderService;
 @Deprecated
@@ -25,7 +25,7 @@ public class SalesOrderSearchAction extends BaseAction {
 	private SalesOrderService soService;
 
 	@Autowired
-	private MPRService mrpServivce;
+	private MRPService mrpServivce;
 
 	private String orderNum;
 	private String dateType;
@@ -123,7 +123,7 @@ public class SalesOrderSearchAction extends BaseAction {
 
 		}
 
-		mrpServivce.runMPR(salesOrders);
+		mrpServivce.runMRP(salesOrders);
 		return SUCCESS;
 
 	}

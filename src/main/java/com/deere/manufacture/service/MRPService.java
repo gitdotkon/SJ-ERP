@@ -14,15 +14,15 @@ import com.deere.dao.GenericDao;
 import com.deere.model.BOMTree;
 import com.deere.model.GenericPart;
 import com.deere.model.Inventory;
-import com.deere.model.MPRModel;
+import com.deere.model.MRPModel;
 import com.deere.model.SalesOrder;
 import com.deere.model.SalesOrderItem;
 import com.deere.model.dto.PartDto;
-import com.deere.model.enums.MPRType;
+import com.deere.model.enums.MRPType;
 import com.deere.sales.service.SalesOrderService;
 
 @Service
-public class MPRService {
+public class MRPService {
 
 	@Autowired
 	private GenericDao<BOMTree> bomTreeDao;
@@ -38,27 +38,27 @@ public class MPRService {
 
 
 	@Autowired
-	private GenericDao<MPRModel> MPRDao;
+	private GenericDao<MRPModel> MRPDao;
 	
 	@Autowired
 	private GenericDao<SalesOrder> SODao;
 
-	public Map<String, Integer> getMPRPart(GenericPart parent, Integer dosage) {
+	public Map<String, Integer> getMRPPart(GenericPart parent, Integer dosage) {
 		// Map<GenericPart,Integer> partList = new
 		// HashMap<GenericPart,Integer>();
-		Map<String, Integer> mprList = getMPR(parent, dosage);
+		Map<String, Integer> mrpList = getMRP(parent, dosage);
 
-		return mprList;
+		return mrpList;
 	}
 
-	public Map<String, Integer> getMPR(GenericPart parent, Integer dosage) {
-		return getMPR(parent.getPartCode(), dosage);
+	public Map<String, Integer> getMRP(GenericPart parent, Integer dosage) {
+		return getMRP(parent.getPartCode(), dosage);
 
 	}
 
-	public Map<String, Integer> getMPR(String parent, Integer dosage) {
-		Map<String, Integer> mprList = new HashMap<String, Integer>();
-		mprList.put(parent, dosage);
+	public Map<String, Integer> getMRP(String parent, Integer dosage) {
+		Map<String, Integer> mrpList = new HashMap<String, Integer>();
+		mrpList.put(parent, dosage);
 		// Map<GenericPart,Integer> bomChild= getBomChild(parent);
 		// Iterator<GenericPart> it = bomChild.keySet().iterator();
 		// bomChild.entrySet()
@@ -67,22 +67,22 @@ public class MPRService {
 		List<BOMTree> machineList = bomTreeDao.query(query);
 		for (BOMTree bomTree : machineList) {
 			GenericPart child = bomTree.getChild();
-			Map<String, Integer> childMap = getMPR(child, bomTree.getDosage());
-			merge(mprList, childMap, dosage);
+			Map<String, Integer> childMap = getMRP(child, bomTree.getDosage());
+			merge(mrpList, childMap, dosage);
 		}
-		return mprList;
+		return mrpList;
 
 	}
 
-	public Map<String, Integer> getMPR(List<PartDto> dtoList) {
-		Map<String, Integer> mprList = new HashMap<String, Integer>();
+	public Map<String, Integer> getMRP(List<PartDto> dtoList) {
+		Map<String, Integer> mrpList = new HashMap<String, Integer>();
 		for (PartDto partDto : dtoList) {
-			Map<String, Integer> eachMap = this.getMPR(partDto.getPartCode(),
+			Map<String, Integer> eachMap = this.getMRP(partDto.getPartCode(),
 					partDto.getQuantity());
-			this.merge(mprList, eachMap, 1);
+			this.merge(mrpList, eachMap, 1);
 		}
 
-		return mprList;
+		return mrpList;
 	}
 
 	public void merge(Map<String, Integer> parentMap,
@@ -98,43 +98,43 @@ public class MPRService {
 		}
 	}
 	
-	public Map<String, Integer> getMPRforOrder(List<SalesOrderItem> SOItemList) {
-		Map<String, Integer> mprList = new HashMap<String, Integer>();
+	public Map<String, Integer> getMRPforOrder(List<SalesOrderItem> SOItemList) {
+		Map<String, Integer> mrpList = new HashMap<String, Integer>();
 
 		for (SalesOrderItem salesOrderItem : SOItemList) {
-			Map<String, Integer> eachMap = this.getMPR(
+			Map<String, Integer> eachMap = this.getMRP(
 					salesOrderItem.getPart(), salesOrderItem.getQuantity());
-			this.merge(mprList, eachMap, 1);
+			this.merge(mrpList, eachMap, 1);
 		}
 
-		return mprList;
+		return mrpList;
 	}
 
-	public void runMPR(List<SalesOrder> salesOrderList) {
+	public void runMRP(List<SalesOrder> salesOrderList) {
 		for (SalesOrder salesOrder : salesOrderList) {
 			List<SalesOrderItem> SOItemList = SOService
 					.findOrderItembyNum(salesOrder.getOrderNum());
-			Map<String, Integer> mprList = getMPRforOrder(SOItemList);
-			Iterator<String> it = mprList.keySet().iterator();
+			Map<String, Integer> mrpList = getMRPforOrder(SOItemList);
+			Iterator<String> it = mrpList.keySet().iterator();
 			while (it.hasNext()) {
 				String partCode = it.next();
-				Integer requiredQty = mprList.get(partCode);
-				MPRModel mprModel = new MPRModel();
+				Integer requiredQty = mrpList.get(partCode);
+				MRPModel mrpModel = new MRPModel();
 				// PartDto partDto = invService.getStockbyPartcode(partCode);
 				GenericPart part = partDao.findById(partCode);
 				// TODO add MPR Type for Parts
 				if (part.getPartType().equals("外购"))
-					mprModel.setMprType(MPRType.parchase);
+					mrpModel.setMprType(MRPType.parchase);
 				else
-					mprModel.setMprType(MPRType.self);
+					mrpModel.setMprType(MRPType.self);
 
-				mprModel.setPart(part);
-				mprModel.setSalesOrder(salesOrder);
-				mprModel.setRequiredQty(requiredQty);
-				mprModel.setDueDate(salesOrder.getDueDate());
+				mrpModel.setPart(part);
+				mrpModel.setSalesOrder(salesOrder);
+				mrpModel.setRequiredQty(requiredQty);
+				mrpModel.setDueDate(salesOrder.getDueDate());
 				// TODO recommanded quantity = required-inv
-				mprModel.setDeliveryDate(salesOrder.getDeliveryDate());
-				MPRDao.merge(mprModel);
+				mrpModel.setDeliveryDate(salesOrder.getDeliveryDate());
+				MRPDao.merge(mrpModel);
 				
 				
 			}
@@ -143,17 +143,17 @@ public class MPRService {
 		}
 	}
 	
-	public List<MPRModel> listOrderforPart(String partCode){
+	public List<MRPModel> listOrderforPart(String partCode){
 		
-		String query="from MPRModel where partCode='"+partCode+"'";
-		return MPRDao.query(query);
+		String query="from MRPModel where partCode='"+partCode+"'";
+		return MRPDao.query(query);
 //		return null;
 	}
 	
 	public List<String> getUnplannedOrder(){
 //		String query="from MPRModel where partCode='"+partCode+"'";
 		String query ="select distinct new com.deere.model.SalesOrder(salesOrder.orderNum)"
-				+ " from MPRModel where mprType=0";
+				+ " from MRPModel where mprType=0";
 		List<SalesOrder> soList= SODao.query(query);
 		List<String> ordrNumList= new ArrayList<String>();
 		for (SalesOrder salesOrder : soList) {

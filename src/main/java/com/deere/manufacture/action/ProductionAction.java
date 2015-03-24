@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.deere.action.BaseAction;
 import com.deere.common.Utils;
-import com.deere.manufacture.service.MPRService;
+import com.deere.manufacture.service.MRPService;
 import com.deere.manufacture.service.ProductionService;
-import com.deere.model.MPRModel;
+import com.deere.model.MRPModel;
 import com.deere.model.SalesOrder;
 import com.deere.model.dto.ProductionDto;
 import com.deere.model.dto.SalesOrderDto;
@@ -26,7 +26,7 @@ public class ProductionAction extends BaseAction {
 	private ProductionService proService;
 
 	@Autowired
-	private MPRService mprService;
+	private MRPService mprService;
 
 	private String dataJson;
 	private String partCode;
@@ -124,8 +124,8 @@ public class ProductionAction extends BaseAction {
 
 	public String listOrder() throws Exception {
 		System.out.println("test");
-		List<MPRModel> mprList = mprService.listOrderforPart(this.getPartCode());
-		for (MPRModel mprModel : mprList) {
+		List<MRPModel> mprList = mprService.listOrderforPart(this.getPartCode());
+		for (MRPModel mprModel : mprList) {
 			SalesOrderDto soDto = new SalesOrderDto();
 			soDto.setSalesOrder(mprModel.getSalesOrder().getOrderNum());
 			soDto.setQuantity(mprModel.getRequiredQty());

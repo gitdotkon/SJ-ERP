@@ -11,7 +11,7 @@ import com.deere.action.BaseAction;
 import com.deere.common.Constants;
 import com.deere.common.Utils;
 import com.deere.exception.GenericException;
-import com.deere.manufacture.service.MPRService;
+import com.deere.manufacture.service.MRPService;
 import com.deere.model.GenericPart;
 import com.deere.model.SalesOrder;
 import com.deere.model.SalesOrderItem;
@@ -58,7 +58,7 @@ public class SalesOrderAction extends BaseAction {
 
 	private List<SalesOrder> salesOrderList = new ArrayList<SalesOrder>();
 	@Autowired
-	private MPRService mrpServivce;
+	private MRPService mrpServivce;
 	
 	public String getDateType() {
 		return dateType;
@@ -224,7 +224,7 @@ public class SalesOrderAction extends BaseAction {
 	 * </p>
 	 * @return
 	 * @see #orderNum
-	 * @see {@link MPRService#runMPR(List)}
+	 * @see {@link MRPService#runMRP(List)}
 	 */
 	public String mrpCal() {
 		orderNum = orderNum.substring(0, orderNum.length() - 1);
@@ -234,7 +234,7 @@ public class SalesOrderAction extends BaseAction {
 			SalesOrder salesOrder = soService.findOrderbyNum(order);
 			salesOrders.add(salesOrder);
 		}
-		mrpServivce.runMPR(salesOrders);
+		mrpServivce.runMRP(salesOrders);
 		return SUCCESS;
 	}
 

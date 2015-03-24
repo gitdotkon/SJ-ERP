@@ -153,7 +153,7 @@ loadTable = function() {
 onExpend = function(partNum) {
 	 $("#orderItemTable").jqGrid('GridUnload');
 	$("#orderItemTable").jqGrid({
-      url:"/main/productionAction!listOrder.action?partCode="+partNum,
+      url:"productionAction!listOrder.action?partCode="+partNum,
       datatype:"json", //数据来源，本地数据
       mtype:"POST",//提交方式
       height:420,//高度，表格高度。可为数值、百分比或'auto'
@@ -205,7 +205,7 @@ loadPlan = function() {
 					   var expendCode= rowData.partCode;
 					   onExpend(expendCode);
 					},
-				url : "/main/productionAction!listOrder.action?selectedOrder="+$("#orderList").val(),
+				url : "${ctx}/main/productionAction!execute.action?selectedOrder="+$("#orderList").val(),
 				datatype : "json", // 数据来源，本地数据
 				mtype : "POST",// 提交方式
 				height : 420,// 高度，表格高度。可为数值、百分比或'auto'

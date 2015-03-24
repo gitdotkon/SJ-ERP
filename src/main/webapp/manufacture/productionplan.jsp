@@ -34,7 +34,7 @@
 			
 			
 			
-			<s:select name="orderList" id="orderList" list="orderNumList" theme="simple" multiple="true" headerKey="00" headerValue="00"></s:select>
+			<s:select name="orderList" id="orderList" list="orderNumList" theme="simple" multiple="true"></s:select>
 			
 		
 			<div class="form-group">
