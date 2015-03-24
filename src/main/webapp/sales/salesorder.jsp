@@ -5,25 +5,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>查询</title>
-<link rel="stylesheet" href="${ctx }/css/jquery-ui.min-jd.css" type="text/css" />
-<link rel="stylesheet" href="${ctx }/css/ui.jqgrid.css" type="text/css" />
-<link href="${ctx }/css/bootstrap.css" rel="stylesheet">
-<script type='text/javascript' src="${ctx}/js/jquery.jqGrid.min.js"></script>
-<script type='text/javascript' src="${ctx}/manufacture/js/salesorder.js"></script>
-<script type='text/javascript' src="${ctx}/js/jquery-ui.min.js"></script>
-<script type='text/javascript' src="${ctx}/js/grid.locale-cn.js"></script>
+
+<script type='text/javascript' src="${ctx}/js/salesorder.js"></script>
 
 <script type="text/javascript" language="javascript">
 	//     var selBtn = 0;
 	//     var nodeId = 0;
 	$(document).ready(function() {
-		loadTable();
+		pageLoad();
 
 	});
 </script>
 </head>
 <body>
-<h4>订单管理. <small>生成订单</small>
+<h4>订单管理. <small>生成订单</small></h4><hr>
 
 <form action="" name="data_form" id="data_form" class="form-inline" role="form">
 <div class="form-group">
@@ -85,9 +80,9 @@
 </select></div>
 <div class="form-group">
 <div class="input-group" style="width: 200px"><input type="text" class="form-control" placeholder="零件图号" id="partCode" name="partCode" value="${partCode}"
-	onKeyPress="onCheckEnter(event)"> <span class="input-group-btn">
+	onKeyPress="onCheckEnter(event,onPartSearch)"> <span class="input-group-btn">
 <button class="btn btn-default" type="button" onClick="onPartSearch()">查询</button>
-<button type="button" class="btn btn-default" onClick="delGrid()">删除</button>
+<button type="button" class="btn btn-default" onClick="delGrid(proTable)">删除</button>
 </span></div>
 </div>
 <div id="partResult">

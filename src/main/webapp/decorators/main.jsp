@@ -9,17 +9,19 @@
 <title><decorator:title default="IT Application" /></title>
 <meta name="generator" content="Bootply" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="${ctx}/css/bootstrap.css" rel="stylesheet">
-<link href="${ctx}/css/layout.css" rel="stylesheet" />
-<!-- Just for debugging purposes. Don't actually copy this line! -->
-<!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-      <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
-      <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-<script type='text/javascript' src="${ctx}/js/jquery-1.10.2.js"></script>
+<link rel="stylesheet" href="${ctx}/css/bootstrap.css" >
+<link rel="stylesheet" href="${ctx}/css/layout.css" />
+<link rel="stylesheet" href="${ctx }/css/jquery-ui.min-jd.css" type="text/css" />
+<link rel="stylesheet" href="${ctx }/css/ui.jqgrid.css" type="text/css" />
+<link rel="stylesheet" href="${ctx }/css/bootstrap-multiselect.css"	type="text/css" />
+
+<script type='text/javascript' src="${ctx}/js/addon/jquery-1.10.2.js"></script>
+<script type='text/javascript' src="${ctx}/js/addon/jquery.jqGrid.min.js"></script>
+<script type='text/javascript' src="${ctx}/js/addon/jquery-ui.min.js"></script>
+<script type='text/javascript' src="${ctx}/js/addon/grid.locale-cn.js"></script>
+<script type="text/javascript" src="${ctx }/js/addon/bootstrap-3.0.3.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/addon/bootstrap-multiselect.js"></script>
 <script type='text/javascript' src="${ctx}/js/common.js"></script>
 <decorator:head />
 </head>

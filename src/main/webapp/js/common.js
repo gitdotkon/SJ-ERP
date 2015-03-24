@@ -1,152 +1,93 @@
-/**
- * [禁用]只能输入数字
- */
-function IsNum(e) {
-    var k = window.event ? e.keyCode : e.which;
-    if (((k >= 48) && (k <= 57)) || k == 8 || k == 0) {
-    } else {
-        if (window.event) {
-            window.event.returnValue = false;
-        }
-        else {
-            e.preventDefault(); //for firefox 
-        }
-    }
+setDatePicker= function(field){
+	$(field).datepicker({
+		changeMonth : true,
+		changeYear : true,
+		dateFormat : "yy/mm/dd"
+	});
+	$(field).val(getSystemData());
 }
-/**
- * [禁用]只能输入数字 加 小数点
- */
-function IsNumAndDot(e) {
-	var k = window.event ? e.keyCode : e.which;
-	if (((k >= 48) && (k <= 57)) || k == 8 || k == 0 || k == 46) {
+
+getSystemData = function(day) {
+	var myDate;
+	if (day == undefined) {
+		myDate = new Date();
 	} else {
-		if (window.event) {
-			window.event.returnValue = false;
-		}
-		else {
-			e.preventDefault(); //for firefox 
-		}
+		myDate = new Date(day);
 	}
-}
-/**
- * [禁用]只能输入数字 加 横线
- */
-function IsNumAndLine(e) {
-	var k = window.event ? e.keyCode : e.which;
-	if (((k >= 48) && (k <= 57)) || k == 8 || k == 0 || k == 45) {
-	} else {
-		if (window.event) {
-			window.event.returnValue = false;
-		}
-		else {
-			e.preventDefault(); //for firefox 
-		}
+	var strDate = myDate.getFullYear() + "/"
+			+ ((myDate.getMonth() + 1) < 10 ? "0" : "")
+			+ (myDate.getMonth() + 1) + "/"
+			+ (myDate.getDate() < 10 ? "0" : "") + myDate.getDate();
+	return strDate;
+};
+
+onCheckEnter = function(e,action){
+	var keyCode = null;
+
+        if(e.which)
+            keyCode = e.which;
+        else if(e.keyCode) 
+            keyCode = e.keyCode;
+            
+        if(keyCode == 13) 
+			action();
+
+
+};
+
+
+function createNewFieldToForm(FormId, FieldId)
+{
+	if (document.getElementById(FormId)[FieldId] == null)
+	{
+		var newItem = document.createElement("input");
+		newItem.id = FieldId;
+		newItem.name = FieldId;
+		newItem.type = "hidden";
+		newItem.value = " ";
+		document.getElementById(FormId).appendChild(newItem);
 	}
-}
+};
 
-/***************************************/
-/***************财年财月  satrt************/
-/***************************************/
-var fscMonWeekDay;
-getfscMonFirstDay = function (day) {
-	fscMonWeekDay='';
-	day.setDate(day.getDate() - 7);
-	if (!isFiscalMonthOfWeek(day)) {
-		getfscMonFirstDay(new Date(day));
-	} else {
-		var spacerDay = 8 - day.getDay();
-		fscMonWeekDay = day.setDate(day.getDate() + (spacerDay == 8?1:spacerDay));
+
+delGrid = function(table) {
+	var grs = jQuery(table).jqGrid('getGridParam', 'selarrrow');
+	if (grs.length > 0)
+		jQuery(table).jqGrid('delGridRow', grs, {
+			reloadAfterSubmit : false
+		});
+	else
+		alert("请选择要删除行！");
+	// 若点击了全选按钮，重置全选按钮框
+	$("#proTable").jqGrid('resetSelection');
+};
+
+addGrid = function(table,item,key,addId) {
+	if (checkDuplicate(table,item,key)) {
+
+		jQuery(table).jqGrid('addRowData', addId, item);
+		addId = addId + 1;
+
+		window.setTimeout(function() {
+			$(table).jqGrid("editCell", addId, 4, true);
+		}, 10);
 	}
-	return fscMonWeekDay;
-}
-getfscMonLastDay = function (day) {
-	fscMonWeekDay='';
-	if (!isFiscalMonthOfWeek(day)) {
-		day.setDate(day.getDate() + 7);
-		getfscMonLastDay(new Date(day));
-	} else {
-		var spacerDay = 7 - day.getDay();
-		fscMonWeekDay = day.setDate(day.getDate() + (spacerDay == 7?0:spacerDay));
-	}
-	return fscMonWeekDay;
-}
+	return addId;
 
-/**
- * 获取财月
- */
-getFiscalMonth = function (day) {
-	if (isFiscalMonthOfWeek(day)) {// 取得财月周周一
-		var converWeek = setWeekDay(day, 1); // 获取当前周的周一
-		var a = (dateDifferent(day, converWeek) + 7) % 7;
-		day.setDate(day.getDate() - a);
-		return getFiscalMonthByDay(day);
-	}
-	var date = new Date(day);
-	date.setDate(date.getDate() - 7);
-	// 判断时间前一周是否是财年结算周
-	if (isFiscalMonthOfWeek(date)) {// 取财月周周五
-		var converWeek = setWeekDay(day, 5);
-		var a = (dateDifferent(day, converWeek)) % 7;
-		day.setDate(day.getDate() - a);
-		return getFiscalMonthByDay(day);
-	}
-	return getFiscalMonthByDay(day);
-	
-}
+};
 
-/**
- * 设置时间星期几
- */
-setWeekDay = function (day, weekDay) {
-	var date = new Date(day);
-	date.setDate(day.getDate() + (weekDay-day.getDay()));
-	return date;
-}
-
-getFiscalMonthByDay = function (day) {
-	var month = day.getMonth();
-	return ((month + 2) % 12) + 1;
-}
-
-getFiscalYear = function (day) {
-	var year = day.getFullYear();
-	var month = day.getMonth();
-	if (month > 8) {
-		var fiscalMonth = getFiscalMonth(day);
-		if (fiscalMonth != 12) {
-			year++;
-		}
-	}
-	return year;
-}
-
-
-isFiscalMonthOfWeek = function (day) {
-	var lastweek = 0;
-	var flag = false;
-	var qtyDay = dateDifferent(day, new Date(2014, 11 - 1, 3));
-	// 多少个星期
-	var week = parseInt(qtyDay / 7) + 1;
-	// 13周一个循环
-	lastweek = week % 13;
-
-	switch (lastweek) {
-	case 0:
-	case 4:
-	case 8:
-		flag = true;
-		break;
-	default:
-		flag = false;
-		break;
+checkDuplicate = function(table,newItem,key) {
+	var obj = $(table).jqGrid("getRowData");
+	var flag = true;
+	if (obj.length > 0) {
+		$(obj).each(function() {
+			var code = this[key];
+			if (code == newItem[key]) {
+				alert("主键重复");
+				flag = false;
+			}
+		});
 	}
 	return flag;
-}
-function dateDifferent(endDate, startDate){
-    var time = endDate.getTime() - startDate.getTime();
-    return parseInt(time / (1000 * 60 * 60 * 24));
-}
 
-/***************************************/
-/***************财年财月  end**************/
-/***************************************/
+};

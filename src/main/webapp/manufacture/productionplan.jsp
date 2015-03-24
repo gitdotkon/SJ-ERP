@@ -6,19 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>查询</title>
-<link rel="stylesheet" href="${ctx }/css/jquery-ui.min-jd.css" type="text/css" />
-<link rel="stylesheet" href="${ctx }/css/ui.jqgrid.css" type="text/css" />
-<link href="${ctx }/css/bootstrap.css" rel="stylesheet">
 
-<script type='text/javascript' src="${ctx }/js/jquery.jqGrid.min.js"></script>
-<script type='text/javascript' src="${ctx }/manufacture/js/productionplan.js"></script>
-<script type='text/javascript' src="${ctx }/js/jquery-ui.min.js"></script>
+<script type='text/javascript' src="${ctx }/js/productionplan.js"></script>
 
-<script type='text/javascript' src="${ctx }/js/grid.locale-cn.js"></script>
-<script type="text/javascript" src="${ctx }/js/bootstrap-3.0.3.min.js"></script>
-<script type="text/javascript" src="${ctx }/js/bootstrap-multiselect.js"></script>
-
-<link rel="stylesheet" href="${ctx }/css/bootstrap-multiselect.css"	type="text/css" />
 
 <script type="text/javascript" language="javascript">
 	//     var selBtn = 0;
@@ -36,7 +26,8 @@
 <body>
 	<h4>
 		生产管理. <small>生产订单</small>
-
+		</h4>
+<hr>
 
 		<form action="" name="data_form" id="data_form" class="form-inline"
 			role="form">
