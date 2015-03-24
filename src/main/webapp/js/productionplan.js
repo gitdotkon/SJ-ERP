@@ -1,57 +1,18 @@
-var part = {
-	partCode : "",
-	partName : "",
-	partType : "",
-	quantity : "",
-	material : ""
-};
+
 var addId = 0;
 var lastSel = 1;
-checkDuplicate = function(TpartCode) {
-	var obj = $("#proTable").jqGrid("getRowData");
-	var flag = true;
-	if (obj.length > 0) {
-		$(obj).each(function() {
-			var partCode = this["partCode"];
-			if (partCode == TpartCode) {
-				alert("物料号重复");
-				flag = false;
-			}
-		});
-	}
-	return flag;
 
-};
 
-addPro = function(rowData) {
-	part.partCode = rowData.partCode;
+pageLoad = function(){
+	setDatePicker("#fromDate");
+	setDatePicker("#toDate");
+	loadTable();
+}
 
-	part.partName = rowData.partName;
-	part.partType = rowData.partType;
-	part.material = rowData.material;
-	$("#partResult").hide();
-	if (checkDuplicate(part.partCode)) {
 
-		jQuery("#proTable").jqGrid('addRowData', addId, part);
-		addId = addId + 1;
 
-		window.setTimeout(function() {
-			$("#proTable").jqGrid("editCell", addId, 4, true);
-		}, 10);
-	}
-
-};
-
-delGrid = function() {
-	var grs = jQuery("#proTable").jqGrid('getGridParam', 'selarrrow');
-	if (grs.length > 0)
-		jQuery("#proTable").jqGrid('delGridRow', grs, {
-			reloadAfterSubmit : false
-		});
-	else
-		alert("请选择要删除行！");
-	// 若点击了全选按钮，重置全选按钮框
-	$("#proTable").jqGrid('resetSelection');
+addPro = function(part) {
+	addId=addGrid(proTable,part,"partCode",addId);
 };
 
 
@@ -65,18 +26,6 @@ selectOrder = function() {
 		alert("请选择要删除行！");
 	// 若点击了全选按钮，重置全选按钮框
 	$("#proTable").jqGrid('resetSelection');
-};
-onCheckEnter = function(e) {
-	var keyCode = null;
-
-	if (e.which)
-		keyCode = e.which;
-	else if (e.keyCode)
-		keyCode = e.keyCode;
-
-	if (keyCode == 13)
-		onPartSearch();
-
 };
 
 onPartSearch = function() {
@@ -146,34 +95,8 @@ onPartSearch = function() {
 
 };
 
-getSystemData = function(day) {
-	var myDate;
-	if (day == undefined) {
-		myDate = new Date();
-	} else {
-		myDate = new Date(day);
-	}
-	var strDate = myDate.getFullYear() + "/"
-			+ ((myDate.getMonth() + 1) < 10 ? "0" : "")
-			+ (myDate.getMonth() + 1) + "/"
-			+ (myDate.getDate() < 10 ? "0" : "") + myDate.getDate();
-	return strDate;
-};
 
 loadTable = function() {
-	$("#deliveryDate").datepicker({
-		changeMonth : true,
-		changeYear : true,
-		dateFormat : "yy/mm/dd"
-	});
-	$("#deliveryDate").val(getSystemData());
-	
-	$("#dueDate").datepicker({
-		changeMonth : true,
-		changeYear : true,
-		dateFormat : "yy/mm/dd"
-	});
-	$("#dueDate").val(getSystemData());
 	jQuery("#proTable").jqGrid({
 		datatype : "local",
 		height : 600,

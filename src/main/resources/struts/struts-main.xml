@@ -5,7 +5,7 @@
 		<default-interceptor-ref name="sessionStack" />
 
 		<action name="search">
-			<result>/search.jsp</result>
+			<result>/report/search.jsp</result>
 		</action>
 		<action name="production">
 			<result>/manufacture/production.jsp</result>
@@ -20,12 +20,12 @@
 		</action> -->
 
 		<action name="order">
-			<result>/manufacture/searchorder.jsp</result>
+			<result>/sales/mrprun.jsp</result>
 		</action>
 
 		<!-- sales order Action -->
 		<action name="salesOrderAction!*" method="{1}" class="com.deere.sales.action.SalesOrderAction">
-			<result>/manufacture/salesorder.jsp</result>
+			<result>/sales/salesorder.jsp</result>
 			<result name="salesOrderList" type="json">
 				<param name="root">salesOrderList</param>
 			</result>

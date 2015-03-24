@@ -16,7 +16,7 @@
 		<action name="loginAction!*" method="{1}" class="com.deere.action.LoginAction">
 			<result name="login">/login.jsp</result>
 			<result name="logout" type="redirectAction">https://registration.deere.com/servlet/LogOutServlet</result>
-			<result name="success">/dataimport.jsp</result>
+			<result name="success">/report/dataimport.jsp</result>
 			<result name="reurl" type="redirect">${methodName}</result>
 		</action>
 		<action name="dashboard">
