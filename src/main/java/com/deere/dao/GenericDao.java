@@ -39,7 +39,7 @@ public interface GenericDao<T> {
 	 * @return void
 	 * @throws
 	 */
-	public void merge(T object);
+	public <T> T merge(T object);
 
 	/**
 	 * @Title: update

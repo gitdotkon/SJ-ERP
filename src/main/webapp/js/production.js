@@ -226,7 +226,7 @@ loadPlan = function() {
 	$("#planTable").jqGrid(
 			{
 
-				url : "/main/productionAction!productionList.action?dataJson=" + jsonData,
+				url : "productionAction!calMRP.action?dataJson=" + jsonData,
 				datatype : "json", // 数据来源，本地数据
 				mtype : "POST",// 提交方式
 				height : 120,// 高度，表格高度。可为数值、百分比或'auto'
@@ -313,6 +313,7 @@ generatePlan = function() {
 	var jsonData = $("#planTable").jqGrid("getRowData");
 	//jsonData = JSON.stringify(jsonData);
 	createNewFieldToForm("data_form", "order");
+	createNewFieldToForm("data_form", "dataJson");
 	/*
 	 * createNewFieldToForm("data_form", "dataJson");
 	 * 
@@ -323,7 +324,7 @@ generatePlan = function() {
 	// document.stock_form.warehousingDate.value = JSON.stringify(jsonData);
 	document.data_form.order.value = document.getElementById("orderNum").value;
 	document.data_form.dataJson.value = JSON.stringify(jsonData);
-	document.data_form.action = "productionList!insertProOrder";
+	document.data_form.action = "productionAction!insertProOrder";
 	document.data_form.method = "post";
 	document.data_form.submit();
 };

@@ -44,8 +44,8 @@ public class GenericDaoHibernateImpl<T> extends HibernateDaoSupport implements G
 	}
 
 	@Override
-	public void merge(T object) {
-		getHibernateTemplate().merge(object);
+	public <T> T merge(T object) {
+		return getHibernateTemplate().merge(object);
 	}
 
 	@Override

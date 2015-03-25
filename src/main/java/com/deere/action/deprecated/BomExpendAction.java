@@ -1,4 +1,4 @@
-package com.deere.action;
+package com.deere.action.deprecated;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.deere.action.BaseAction;
 import com.deere.model.BOMTree;
 import com.deere.model.GenericPart;
 import com.deere.model.dto.BOMTreeDto;

@@ -31,7 +31,9 @@ public class StringUtil {
         return digestChars;
     }
     
-    
+    /*
+     * change string list to sql list
+     */
     public static String getStringSql(String str){
     	String rStr= str.replace(",", "','");
     	rStr="('"+rStr+"')";

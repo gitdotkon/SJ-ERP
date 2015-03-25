@@ -19,7 +19,7 @@
 			<result>manufacture/salesorder.jsp</result>
 		</action> -->
 
-		<action name="order">
+		<action name="mrpCal">
 			<result>/sales/mrprun.jsp</result>
 		</action>
 
@@ -55,7 +55,7 @@
 			</action>
 		-->
 		<action name="stockManager" class="com.deere.inventory.action.WarehousingAction">
-			<result name="success">/manufacture/addstock.jsp</result>
+			<result name="success">/inventory/addstock.jsp</result>
 			<result name="return" type="json">
 				<param name="root">partList</param>
 			</result>
@@ -99,6 +99,10 @@
 			</result>
 			<result name="listOrder" type="json">
 				<param name="root">orderList</param>
+			</result>
+			
+			<result name="listMRP" type="json">
+				<param name="root">productionList</param>
 			</result>
 		</action>
 		<!-- 

@@ -1,10 +1,11 @@
-package com.deere.action;
+package com.deere.action.deprecated;
 
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.deere.action.BaseAction;
 import com.deere.model.GenericPart;
 import com.deere.model.json.BomJsonDto;
 import com.deere.service.BOMService;

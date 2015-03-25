@@ -23,6 +23,7 @@ public class MRPModel extends GenericModel {
 	private MRPType mprType =MRPType.self;
 	private Date deliveryDate;
 	private Date dueDate;
+	private Boolean planned=false;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,6 +74,13 @@ public class MRPModel extends GenericModel {
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
+	public Boolean getPlanned() {
+		return planned;
+	}
+	public void setPlanned(Boolean planned) {
+		this.planned = planned;
+	}
+	
 	
 	
 

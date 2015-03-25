@@ -38,6 +38,8 @@ public class ProductionService {
 	@Autowired
 	private GenericDao<ProductionDto> proDtoDao;
 	
+	
+	
 	@Autowired
 	private InventoryService invService;
 	
@@ -72,6 +74,18 @@ public class ProductionService {
 		return productionList;
 	}*/
 	
+	
+	
+	/*
+	 * 
+	 * /*
+	 * 
+	 * List unplanned production requirements from mrp<mrpModel> pool
+	 * (non-Javadoc)
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 *
+	 * 
+	 */
 	public List<ProductionDto> productionPlan(String selectedOrder){
 
 	/*	
@@ -80,7 +94,7 @@ public class ProductionService {
 		+ " where a.partCode=GenericPart.partCode";*/
 		
 		String query ="select new com.deere.model.dto.ProductionDto(mm.part,SUM(mm.requiredQty))"
-				+ " from MRPModel mm where mm.mprType=0";
+				+ " from MRPModel mm where mm.mprType=0 and mm.planned = false";
 		
 		StringBuffer buffer = new StringBuffer(query);
 		
@@ -110,21 +124,24 @@ public class ProductionService {
 		
 	}
 	
+	
+	
 	public void generatePlan(List<ProductionDto> proDtoList,String PONumber){
 		ProductionOrder proOrder= new ProductionOrder();
-		proOrder.setOrderNum(PONumber);
+//		proOrder.setOrderNum(PONumber);
 		proOrder.setOrderDate(new Date());
-		proOrderDao.merge(proOrder);
+		proOrder=proOrderDao.merge(proOrder);
 		for (ProductionDto productionDto : proDtoList) {
 			ProductionOrderItem poItem = new ProductionOrderItem();
 //			BeanUtils.copyProperties(productionDto, poItem);
-//			GenericPart part = partDao.findById(productionDto.getParentCode());
-//			poItem.setPart(part);
+			GenericPart part = partDao.findById(productionDto.getPartCode());
+			poItem.setPart(part);
 			poItem.setPlannedQty(productionDto.getActualQty());
 			
 			poItem.setProOrder(proOrder);
 			proItemDao.merge(poItem);
 		}
+		
 		
 	}
 	

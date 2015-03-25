@@ -35,8 +35,8 @@
 		
 		<global-results>
 			<result name="exception">/exception/commonexception.jsp</result>
-			<!-- <result name="login" type="redirect">http://unh-localapp.deere.com/login_action?url=${methodName}</result> -->
-			<result name="login" >login.jsp</result>
+			<!-- <result name="login" type="redirect">http://unh-localapp.deere.com/login_action?url=${methodName}</result> "${ctx }/js/mrpRun.js" -->
+			<result name="login" >${ctx}/login.jsp</result>
 			<result name="logout" type="redirect">https://registration.deere.com/servlet/LogOutServlet</result>
 			
 		</global-results>

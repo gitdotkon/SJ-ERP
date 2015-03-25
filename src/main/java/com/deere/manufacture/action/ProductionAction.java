@@ -2,18 +2,24 @@ package com.deere.manufacture.action;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.deere.action.BaseAction;
 import com.deere.common.Utils;
+import com.deere.dao.GenericDao;
 import com.deere.manufacture.service.MRPService;
 import com.deere.manufacture.service.ProductionService;
+import com.deere.model.GenericPart;
+import com.deere.model.Inventory;
 import com.deere.model.MRPModel;
-import com.deere.model.SalesOrder;
+import com.deere.model.dto.PartDto;
 import com.deere.model.dto.ProductionDto;
 import com.deere.model.dto.SalesOrderDto;
+import com.deere.model.enums.MRPType;
 
 public class ProductionAction extends BaseAction {
 
@@ -27,11 +33,14 @@ public class ProductionAction extends BaseAction {
 
 	@Autowired
 	private MRPService mprService;
+	
+	@Autowired
+	private GenericDao<Inventory> inventoryDao;
 
 	private String dataJson;
 	private String partCode;
 
-	private List<ProductionDto> productionList = Collections.EMPTY_LIST;
+	private List<ProductionDto> productionList = new ArrayList<ProductionDto>();
 	private List<String> orderNumList = Collections.EMPTY_LIST;
 
 	private List<SalesOrderDto> orderList = new ArrayList<SalesOrderDto>();
@@ -100,7 +109,12 @@ public class ProductionAction extends BaseAction {
 		this.setOrderNumList(mprService.getUnplannedOrder());
 		return SUCCESS;
 	}
-
+	/*
+	 * 
+	 * List unplanned production requirements from mrp<mrpModel> pool
+	 * (non-Javadoc)
+	 * @see com.opensymphony.xwork2.ActionSupport#execute()
+	 */
 	@Override
 	public String execute() throws Exception {
 
@@ -121,6 +135,38 @@ public class ProductionAction extends BaseAction {
 		proService.generatePlan(proList, order);
 		return SUCCESS;
 	}
+	
+	public String calMRP() throws Exception {
+
+		String a = this.getOrder();
+		System.out.println(a);
+		List<PartDto> dtoList = Utils.json2Object(dataJson, PartDto.class);
+		Map<String, Integer> mrpList = mprService.getMRP(dtoList);
+		Iterator<String> it = mrpList.keySet().iterator();
+		while (it.hasNext()) {
+			ProductionDto proDto = new ProductionDto();
+			String partCode = it.next();
+			proDto.setPartCode(partCode);
+			proDto.setRequiredQty(mrpList.get(partCode));
+			Inventory inv =inventoryDao.findById(proDto.getPartCode());
+			if(inv==null) 
+				proDto.setInventoryQty(0);
+			else 
+				proDto.setInventoryQty(inv.getQuantity());
+			
+			Integer recommandedQty =  proDto.getRequiredQty()-proDto.getInventoryQty();
+			if(recommandedQty<0)
+				recommandedQty=0;
+			proDto.setRecommandedQty(recommandedQty);
+			proDto.setActualQty(recommandedQty);
+			productionList.add(proDto);
+		}
+		
+		
+		
+		return "listMRP";
+	}
+	
 
 	public String listOrder() throws Exception {
 		System.out.println("test");

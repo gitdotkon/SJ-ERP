@@ -13,23 +13,23 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ProductionOrder extends GenericModel {
-	private String orderNum;
+	private int orderNum;
 	private Date orderDate;
 	private User responsible;
 	
 	public Date getOrderDate() {
 		return orderDate;
 	}
-	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-	public String getOrderNum() {
-		return orderNum;
-	}
-	public void setOrderNum(String orderNum) {
-		this.orderNum = orderNum;
-	}
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
+	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public int getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
 	}
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "responsible")
