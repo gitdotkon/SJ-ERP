@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import com.deere.base.util.StringUtil;
 import com.deere.dao.GenericDao;
 import com.deere.inventory.service.InventoryService;
+import com.deere.model.AccountStatement;
 import com.deere.model.GenericPart;
 import com.deere.model.Inventory;
-import com.deere.model.MRPModel;
 import com.deere.model.ProductionOrder;
 import com.deere.model.ProductionOrderItem;
 import com.deere.model.dto.ProductionDto;
@@ -38,7 +38,8 @@ public class ProductionService {
 	@Autowired
 	private GenericDao<ProductionDto> proDtoDao;
 	
-	
+	@Autowired
+	private GenericDao<AccountStatement> accountStatementDao;
 	
 	@Autowired
 	private InventoryService invService;
@@ -73,8 +74,6 @@ public class ProductionService {
 		}
 		return productionList;
 	}*/
-	
-	
 	
 	/*
 	 * 
@@ -124,8 +123,6 @@ public class ProductionService {
 		
 	}
 	
-	
-	
 	public void generatePlan(List<ProductionDto> proDtoList,String PONumber){
 		ProductionOrder proOrder= new ProductionOrder();
 //		proOrder.setOrderNum(PONumber);
@@ -141,9 +138,13 @@ public class ProductionService {
 			poItem.setProOrder(proOrder);
 			proItemDao.merge(poItem);
 		}
-		
-		
 	}
-	
+	/**
+	 * 保存工厂的流水单
+	 * @param aStatement
+	 */
+	public void addAccountStatement(AccountStatement aStatement){
+		accountStatementDao.save(aStatement);
+	}
 	
 }

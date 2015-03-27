@@ -13,13 +13,12 @@ import com.deere.common.Utils;
 import com.deere.dao.GenericDao;
 import com.deere.manufacture.service.MRPService;
 import com.deere.manufacture.service.ProductionService;
-import com.deere.model.GenericPart;
+import com.deere.model.AccountStatement;
 import com.deere.model.Inventory;
 import com.deere.model.MRPModel;
 import com.deere.model.dto.PartDto;
 import com.deere.model.dto.ProductionDto;
 import com.deere.model.dto.SalesOrderDto;
-import com.deere.model.enums.MRPType;
 
 public class ProductionAction extends BaseAction {
 
@@ -39,6 +38,10 @@ public class ProductionAction extends BaseAction {
 
 	private String dataJson;
 	private String partCode;
+	/**
+	 * 流水单
+	 */
+	private AccountStatement aStatement;
 
 	private List<ProductionDto> productionList = new ArrayList<ProductionDto>();
 	private List<String> orderNumList = Collections.EMPTY_LIST;
@@ -46,6 +49,14 @@ public class ProductionAction extends BaseAction {
 	private List<SalesOrderDto> orderList = new ArrayList<SalesOrderDto>();
 
 	private String selectedOrder;
+	
+	public AccountStatement getAStatement() {
+		return aStatement;
+	}
+
+	public void setAStatement(AccountStatement statement) {
+		aStatement = statement;
+	}
 
 	public String getSelectedOrder() {
 		return selectedOrder;
@@ -181,5 +192,13 @@ public class ProductionAction extends BaseAction {
 			this.getOrderList().add(soDto);
 		}
 		return "listOrder";
+	}
+	/**
+	 * 保存流水单据
+	 * @return
+	 */
+	public String addAccountStatement(){
+		proService.addAccountStatement(aStatement);
+		return "";
 	}
 }
