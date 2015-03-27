@@ -35,6 +35,7 @@ public class StringUtil {
      * change string list to sql list
      */
     public static String getStringSql(String str){
+    	if(str==null) return null;
     	String rStr= str.replace(",", "','");
     	rStr="('"+rStr+"')";
     	return rStr;

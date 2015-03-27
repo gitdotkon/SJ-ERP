@@ -24,6 +24,7 @@ public class MRPModel extends GenericModel {
 	private Date deliveryDate;
 	private Date dueDate;
 	private Boolean planned=false;
+	private ProductionOrderItem proOrderItem;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -79,6 +80,14 @@ public class MRPModel extends GenericModel {
 	}
 	public void setPlanned(Boolean planned) {
 		this.planned = planned;
+	}
+	@ManyToOne
+	@JoinColumn(name="proOrderItemNum")
+	public ProductionOrderItem getProOrderItem() {
+		return proOrderItem;
+	}
+	public void setProOrderItem(ProductionOrderItem proOrderItem) {
+		this.proOrderItem = proOrderItem;
 	}
 	
 	

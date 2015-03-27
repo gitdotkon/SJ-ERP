@@ -310,10 +310,10 @@ loadPlan = function() {
 };
 
 generatePlan = function() {
-	var jsonData = $("#planTable").jqGrid("getRowData");
+	var objList = $("#planTable").jqGrid("getRowData");
 	//jsonData = JSON.stringify(jsonData);
 	createNewFieldToForm("data_form", "order");
-	createNewFieldToForm("data_form", "dataJson");
+	createNewFieldToForm("data_form", "jsonData");
 	/*
 	 * createNewFieldToForm("data_form", "dataJson");
 	 * 
@@ -323,21 +323,10 @@ generatePlan = function() {
 	 */
 	// document.stock_form.warehousingDate.value = JSON.stringify(jsonData);
 	document.data_form.order.value = document.getElementById("orderNum").value;
-	document.data_form.dataJson.value = JSON.stringify(jsonData);
+	document.data_form.jsonData.value = JSON.stringify(objList);
 	document.data_form.action = "productionAction!insertProOrder";
 	document.data_form.method = "post";
 	document.data_form.submit();
 };
 
 
-
-function createNewFieldToForm(FormId, FieldId) {
-	if (document.getElementById(FormId)[FieldId] == null) {
-		var newItem = document.createElement("input");
-		newItem.id = FieldId;
-		newItem.name = FieldId;
-		newItem.type = "hidden";
-		newItem.value = " ";
-		document.getElementById(FormId).appendChild(newItem);
-	}
-};

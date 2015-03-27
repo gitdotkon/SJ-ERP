@@ -94,6 +94,7 @@
 		</action>
 
 		<action name="productionAction!*" method="{1}" class="com.deere.manufacture.action.ProductionAction">
+			<result name="input" type ="chain">productionPlan</result>
 			<result name="success" type="json">
 				<param name="root">productionList</param>
 			</result>
@@ -104,6 +105,8 @@
 			<result name="listMRP" type="json">
 				<param name="root">productionList</param>
 			</result>
+			
+			
 		</action>
 		<!-- 
 			<action name="productionList" class="com.deere.manufacture.action.ProductionAction">

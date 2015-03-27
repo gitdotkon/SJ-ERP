@@ -19,6 +19,7 @@
 			        	enableFiltering: true,
 			        	maxHeight: 150
 			        	});
+		pageLoad();
 
 	});
 </script>
@@ -38,19 +39,15 @@
 			role="form">
 			
 			
-			
-			<s:select name="orderList" id="orderList" list="orderNumList" theme="simple" multiple="true"></s:select>
+
 			
 		
 			<div class="form-group">
 				<div class="input-group" style="width:200px">
 
 					<div class="input-group" style="width:200px">
-						<span class="input-group-addon">订单号码：</span> <input type="text"
-							class="form-control" id="orderNum" name="orderNum"
-							style="width:100px"> <span class="input-group-btn">
-
-						</span>
+						<span class="input-group-addon">订单号码：</span>
+						<s:select name="orderList" id="orderList" list="orderNumList" theme="simple" multiple="true"></s:select>
 					</div>
 
 				</div>
@@ -102,7 +99,7 @@
 			<button type="button" class="btn btn-default"
 				onClick="loadPlan() ">查询</button>
 
-			<button type="button" class="btn btn-default" onClick="getOrder()">运算</button>
+			<button type="button" class="btn btn-default" onClick="generatePlan()">生产计划</button>
 
 
 
