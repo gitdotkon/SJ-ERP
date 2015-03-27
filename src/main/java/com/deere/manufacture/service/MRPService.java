@@ -10,6 +10,7 @@ import org.logicalcobwebs.asm.tree.TryCatchBlockNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.deere.base.util.StringUtil;
 import com.deere.dao.GenericDao;
 import com.deere.model.BOMTree;
 import com.deere.model.GenericPart;
@@ -162,5 +163,16 @@ public class MRPService {
 		return ordrNumList;
 	}
 	
+public List<MRPModel> listRequirement(String partCode,String orders){
+	
+		
+		String query="from MRPModel where partCode='"+partCode;
+		if (orders!=null){
+			String orderSql= StringUtil.getStringSql(orders);
+			query+="' and salesOrder in " + orderSql;
+		}
+		return MRPDao.query(query);
+//		return null;
+	}
 	
 }

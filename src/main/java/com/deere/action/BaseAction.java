@@ -12,19 +12,18 @@ public class BaseAction extends ActionSupport implements SessionAware {
 	 * 
 	 */
 	Map<String, Object> session;
-	private String jsonData;
-
-	@Override
-	public void setSession(Map<String, Object> session) {
-		this.session=session;
-	}
-
+	
+	protected String jsonData;
 	public String getJsonData() {
 		return jsonData;
 	}
 
 	public void setJsonData(String jsonData) {
 		this.jsonData = jsonData;
+	}
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session=session;
 	}
 	
 	

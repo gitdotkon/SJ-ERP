@@ -38,6 +38,9 @@ public class ProductionService {
 	@Autowired
 	private GenericDao<ProductionDto> proDtoDao;
 	
+	@Autowired
+	private GenericDao<MRPModel> MRPDao;
+	
 	
 	
 	@Autowired
@@ -126,7 +129,7 @@ public class ProductionService {
 	
 	
 	
-	public void generatePlan(List<ProductionDto> proDtoList,String PONumber){
+	public void generatePlan(List<ProductionDto> proDtoList,String orderNum){
 		ProductionOrder proOrder= new ProductionOrder();
 //		proOrder.setOrderNum(PONumber);
 		proOrder.setOrderDate(new Date());
@@ -140,6 +143,12 @@ public class ProductionService {
 			
 			poItem.setProOrder(proOrder);
 			proItemDao.merge(poItem);
+			List<MRPModel> mrpList = mpr.listRequirement(part.getPartCode(), orderNum);
+			for (MRPModel mrpModel : mrpList) {
+				mrpModel.setPlanned(true);
+				mrpModel.setProOrderItem(poItem);
+				MRPDao.merge(mrpModel);
+			}
 		}
 		
 		

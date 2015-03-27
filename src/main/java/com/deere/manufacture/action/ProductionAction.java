@@ -37,7 +37,6 @@ public class ProductionAction extends BaseAction {
 	@Autowired
 	private GenericDao<Inventory> inventoryDao;
 
-	private String dataJson;
 	private String partCode;
 
 	private List<ProductionDto> productionList = new ArrayList<ProductionDto>();
@@ -46,6 +45,18 @@ public class ProductionAction extends BaseAction {
 	private List<SalesOrderDto> orderList = new ArrayList<SalesOrderDto>();
 
 	private String selectedOrder;
+	
+	private String order;
+	
+	
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
 
 	public String getSelectedOrder() {
 		return selectedOrder;
@@ -63,23 +74,8 @@ public class ProductionAction extends BaseAction {
 		this.orderNumList = orderNumList;
 	}
 
-	private String order;
-
-	public String getOrder() {
-		return order;
-	}
-
-	public void setOrder(String order) {
-		this.order = order;
-	}
-
-	public String getDataJson() {
-		return dataJson;
-	}
-
-	public void setDataJson(String dataJson) {
-		this.dataJson = dataJson;
-	}
+	
+	
 
 	public List<ProductionDto> getProductionList() {
 		return productionList;
@@ -129,18 +125,18 @@ public class ProductionAction extends BaseAction {
 
 	public String insertProOrder() throws Exception {
 
-		String a = this.getOrder();
+		String a = this.getSelectedOrder();
 		System.out.println(a);
-		List<ProductionDto> proList = Utils.json2Object(dataJson, ProductionDto.class);
-		proService.generatePlan(proList, order);
-		return SUCCESS;
+		List<ProductionDto> proList = Utils.json2Object(jsonData, ProductionDto.class);
+		proService.generatePlan(proList, selectedOrder);
+		return "input";
 	}
 	
 	public String calMRP() throws Exception {
 
 		String a = this.getOrder();
 		System.out.println(a);
-		List<PartDto> dtoList = Utils.json2Object(dataJson, PartDto.class);
+		List<PartDto> dtoList = Utils.json2Object(jsonData, PartDto.class);
 		Map<String, Integer> mrpList = mprService.getMRP(dtoList);
 		Iterator<String> it = mrpList.keySet().iterator();
 		while (it.hasNext()) {
