@@ -13,7 +13,7 @@ import com.deere.common.Utils;
 import com.deere.dao.GenericDao;
 import com.deere.manufacture.service.MRPService;
 import com.deere.manufacture.service.ProductionService;
-import com.deere.model.AccountStatement;
+import com.deere.model.ProductionDetail;
 import com.deere.model.Inventory;
 import com.deere.model.MRPModel;
 import com.deere.model.dto.PartDto;
@@ -41,7 +41,7 @@ public class ProductionAction extends BaseAction {
 	/**
 	 * 流水单
 	 */
-	private AccountStatement aStatement;
+	private ProductionDetail aStatement;
 
 	private List<ProductionDto> productionList = new ArrayList<ProductionDto>();
 	private List<String> orderNumList = Collections.EMPTY_LIST;
@@ -50,11 +50,11 @@ public class ProductionAction extends BaseAction {
 
 	private String selectedOrder;
 	
-	public AccountStatement getAStatement() {
+	public ProductionDetail getAStatement() {
 		return aStatement;
 	}
 
-	public void setAStatement(AccountStatement statement) {
+	public void setAStatement(ProductionDetail statement) {
 		aStatement = statement;
 	}
 

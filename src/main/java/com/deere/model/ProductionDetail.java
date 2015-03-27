@@ -16,12 +16,12 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-@Table(name="ACCOUNT_STATEMENT")
-public class AccountStatement extends GenericModel {
+@Table(name="PRODUCTION_DETAIL")
+public class ProductionDetail extends GenericModel {
 	/**
 	 * 流水号
 	 */
-	private int swiftNumber;
+	private int batchNum;
 	/**
 	 *  与之相关的计划单
 	 */
@@ -45,11 +45,11 @@ public class AccountStatement extends GenericModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	public int getSwiftNumber() {
-		return swiftNumber;
+	public int getBatchNum() {
+		return batchNum;
 	}
-	public void setSwiftNumber(int swiftNumber) {
-		this.swiftNumber = swiftNumber;
+	public void setBatchNum(int batchNum) {
+		this.batchNum = batchNum;
 	}
 	public String getPlanOrder() {
 		return planOrder;
