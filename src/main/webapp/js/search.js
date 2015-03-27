@@ -99,7 +99,7 @@ onClick = function(parent) {
 onExpend = function(parent) {
 	 $("#bomTable").jqGrid('GridUnload');
 	$("#bomTable").jqGrid({
-        url:"/main/bomAction!bomExpend.action?parentCode="+parent,
+        url:"/bomAction!bomExpend.action?parentCode="+parent,
         datatype:"json", //数据来源，本地数据
         mtype:"POST",//提交方式
         height:420,//高度，表格高度。可为数值、百分比或'auto'
@@ -148,7 +148,7 @@ onStockSearch = function() {
 	$("#invTable").jqGrid({
 		
 	
-        url:"/main/searchInv.action?partCode="+partCode,
+        url:"/searchInv.action?partCode="+partCode,
         datatype:"json", //数据来源，本地数据
         mtype:"POST",//提交方式
         height:420,//高度，表格高度。可为数值、百分比或'auto'
