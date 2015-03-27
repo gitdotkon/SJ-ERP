@@ -41,7 +41,7 @@ public class ProductionAction extends BaseAction {
 	/**
 	 * 流水单
 	 */
-	private ProductionDetail aStatement;
+	private ProductionDetail pDetail;
 
 	private List<ProductionDto> productionList = new ArrayList<ProductionDto>();
 	private List<String> orderNumList = Collections.EMPTY_LIST;
@@ -51,11 +51,11 @@ public class ProductionAction extends BaseAction {
 	private String selectedOrder;
 	
 	public ProductionDetail getAStatement() {
-		return aStatement;
+		return pDetail;
 	}
 
 	public void setAStatement(ProductionDetail statement) {
-		aStatement = statement;
+		pDetail = statement;
 	}
 
 	public String getSelectedOrder() {
@@ -197,8 +197,8 @@ public class ProductionAction extends BaseAction {
 	 * 保存流水单据
 	 * @return
 	 */
-	public String addAccountStatement(){
-		proService.addAccountStatement(aStatement);
+	public String addProductionDetail(){
+		proService.addProductionDetail(pDetail);
 		return "";
 	}
 }

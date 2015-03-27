@@ -39,7 +39,7 @@ public class ProductionService {
 	private GenericDao<ProductionDto> proDtoDao;
 	
 	@Autowired
-	private GenericDao<ProductionDetail> accountStatementDao;
+	private GenericDao<ProductionDetail> productionDetailDao;
 	
 	@Autowired
 	private InventoryService invService;
@@ -141,10 +141,10 @@ public class ProductionService {
 	}
 	/**
 	 * 保存工厂的流水单
-	 * @param aStatement
+	 * @param detail
 	 */
-	public void addAccountStatement(ProductionDetail aStatement){
-		accountStatementDao.save(aStatement);
+	public void addProductionDetail(ProductionDetail detail){
+		productionDetailDao.save(detail);
 	}
 	
 }
