@@ -28,7 +28,12 @@
 		生产管理. <small>生产订单</small>
 		</h4>
 <hr>
-
+<div align="right" style="float: right;width: 50%">
+      	<span style=" margin-left: 5px;" ><a href="production">生产流水</a></span>|
+    	<span style=" margin-left: 5px;"><a href="salesOrderAction!execute">创建订单</a></span>|
+    	<span style=" margin-left: 5px;"><a href="reportInventory.html">当月库存报告</a></span> 
+    	</div> 
+		<br>
 		<form action="" name="data_form" id="data_form" class="form-inline"
 			role="form">
 			
