@@ -139,5 +139,7 @@ public interface GenericDao<T> {
 	public List<T> nativeQuery(String query, Class<T> targetObj);
 
 	public int getQuantityByCriteria(String criteria);
+	
+	public List callProcR(String proc, List<String> para,final Class<T> targetObj);
 
 }

@@ -17,7 +17,8 @@ public class ProductionOrderItem extends GenericModel {
 	private GenericPart part;
 	private Integer plannedQty;
 	private Integer finishedQty=0;
-	private String batchNumber;
+	private Boolean self;
+	private Boolean completed=false;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,11 +56,18 @@ public class ProductionOrderItem extends GenericModel {
 	public void setFinishedQty(Integer finishedQty) {
 		this.finishedQty = finishedQty;
 	}
-	public String getBatchNumber() {
-		return batchNumber;
+	
+	public Boolean getSelf() {
+		return self;
 	}
-	public void setBatchNumber(String batchNumber) {
-		this.batchNumber = batchNumber;
+	public void setSelf(Boolean self) {
+		this.self = self;
+	}
+	public Boolean getCompleted() {
+		return completed;
+	}
+	public void setCompleted(Boolean completed) {
+		this.completed = completed;
 	}
 	
 	

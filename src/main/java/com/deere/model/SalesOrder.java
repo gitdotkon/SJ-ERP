@@ -24,7 +24,7 @@ public class SalesOrder extends GenericModel{
 	private String notes;
 	private Boolean planned=false;
 	private Set<SalesOrderItem> orderItems = new HashSet<SalesOrderItem>();
-	
+	private String orderStatus;
 	
 	@Id
 	public String getOrderNum() {
@@ -120,6 +120,12 @@ public class SalesOrder extends GenericModel{
     }
 	public SalesOrder(String orderNum) {
 		this.setOrderNum(orderNum);
+	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
 	} 
 	
     

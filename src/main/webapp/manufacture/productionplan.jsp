@@ -35,8 +35,7 @@
     	<span style=" margin-left: 5px;"><a href="reportInventory.html">当月库存报告</a></span> 
     	</div> 
 		<br>
-		<form action="" name="data_form" id="data_form" class="form-inline"
-			role="form">
+		<form action=""  class="form-inline" role="form">
 			
 			
 
@@ -99,7 +98,7 @@
 			<button type="button" class="btn btn-default"
 				onClick="loadPlan() ">查询</button>
 
-			<button type="button" class="btn btn-default" onClick="generatePlan()">生产计划</button>
+			<button type="button" class="btn btn-default" onClick="productionPlan()">生产计划</button>
 
 
 
@@ -108,7 +107,9 @@
 
 
 		</form>
-
+		
+	<form action="" name="data_form" id="data_form"/>
+			
 
 		<table id="planTable" class="table table-striped table-condensed"></table>
 		<!-- jqGrid 分页 div gridPager -->

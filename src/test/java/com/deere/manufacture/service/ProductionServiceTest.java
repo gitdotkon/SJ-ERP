@@ -17,7 +17,7 @@ public class ProductionServiceTest {
 	ProductionService proService;
 	@Test
 	public void testGeneratePlan() {
-		List<ProductionDto>  proList= proService.productionPlan("00");
+		List<ProductionDto>  proList= proService.productionPlan("erp2");
 		System.out.print(proList.size());
 		for (ProductionDto productionDto : proList) {
 			System.out.println(productionDto.getPartName() + productionDto.getRequiredQty());
