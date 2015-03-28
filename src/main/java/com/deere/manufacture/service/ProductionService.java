@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 import com.deere.base.util.StringUtil;
 import com.deere.dao.GenericDao;
 import com.deere.inventory.service.InventoryService;
+import com.deere.model.MRPModel;
+import com.deere.model.ProductionDetail;
 import com.deere.model.GenericPart;
 import com.deere.model.Inventory;
-import com.deere.model.MRPModel;
 import com.deere.model.ProductionOrder;
 import com.deere.model.ProductionOrderItem;
 import com.deere.model.dto.PlanDto;
@@ -42,14 +43,17 @@ public class ProductionService {
 	private GenericDao<ProductionDto> proDtoDao;
 
 	@Autowired
+
 	private GenericDao<MRPModel> MRPDao;
+
+	private GenericDao<ProductionDetail> productionDetailDao;
 
 	@Autowired
 	private InventoryService invService;
 
 	@Autowired
 	private SalesOrderService SOService;
-	
+
 	@Autowired
 	GenericDao<PlanDto> planDao;
 	/*
@@ -69,6 +73,36 @@ public class ProductionService {
 	 * proDto.setActualQty(recommandedQty); productionList.add(proDto); } return
 	 * productionList; }
 	 */
+
+
+	/*public List<ProductionDto> genProOrder(List<PartDto> dtoList){
+		List<ProductionDto> productionList= new ArrayList<ProductionDto>();
+		Map<String,Integer> mprList = mpr.getMPR(dtoList);
+		Iterator<String> it =  mprList.keySet().iterator();
+		while(it.hasNext()){
+			String partCode =it.next();
+			Integer requiredQty = mprList.get(partCode);
+			ProductionDto proDto = new ProductionDto();
+//			PartDto partDto = invService.getStockbyPartcode(partCode);
+			Inventory inv = inventoryDao.findById(partCode);
+			if(inv==null){
+				GenericPart part = partDao.findById(partCode);
+				BeanUtils.copyProperties(part, proDto);
+				proDto.setQuantity(0);
+			}
+			else
+				BeanUtils.copyProperties(inv, proDto);
+			proDto.setRequiredQty(requiredQty);
+			Integer recommandedQty =  requiredQty-proDto.getQuantity();
+			if(recommandedQty<0)
+				recommandedQty=0;
+			proDto.setRecommandedQty(recommandedQty);
+			proDto.setActualQty(recommandedQty);
+			productionList.add(proDto);
+		}
+		return productionList;
+	}*/
+	
 
 	/*
 	 * 
@@ -124,6 +158,7 @@ public class ProductionService {
 		}
 
 		return dtoList;
+<<<<<<< HEAD
 
 	}*/
 	
@@ -156,9 +191,10 @@ public class ProductionService {
 		return dtoList;
 	}
 
-	public void generatePlan(List<ProductionDto> proDtoList, String orderNum) {
-		ProductionOrder proOrder = new ProductionOrder();
-		// proOrder.setOrderNum(PONumber);
+	
+	public void generatePlan(List<ProductionDto> proDtoList,String orderNum){
+		ProductionOrder proOrder= new ProductionOrder();
+//		proOrder.setOrderNum(PONumber);
 		proOrder.setOrderDate(new Date());
 		proOrder = proOrderDao.merge(proOrder);
 		for (ProductionDto productionDto : proDtoList) {
@@ -183,17 +219,12 @@ public class ProductionService {
 		}
 	}
 	
-	private Integer getProcessingQty(String partCode){
-//		proItemDao
-		String query= "from ProductionOrderItem where part.partCode='"+partCode+"' and completed = false";
-		List<ProductionOrderItem> proItems= proItemDao.query(query);
-		Integer processingQty=0;
-		for (ProductionOrderItem productionOrderItem : proItems) {
-			processingQty+=productionOrderItem.getPlannedQty();
-			processingQty-=productionOrderItem.getFinishedQty();
-		}
-		return processingQty;
-		
+	/**
+	 * 保存工厂的流水单
+	 * @param detail
+	 */
+	public void addProductionDetail(ProductionDetail detail){
+		productionDetailDao.save(detail);
 	}
 	
 	private Integer getReservedQty(String partCode){

@@ -13,13 +13,12 @@ import com.deere.common.Utils;
 import com.deere.dao.GenericDao;
 import com.deere.manufacture.service.MRPService;
 import com.deere.manufacture.service.ProductionService;
-import com.deere.model.GenericPart;
+import com.deere.model.ProductionDetail;
 import com.deere.model.Inventory;
 import com.deere.model.MRPModel;
 import com.deere.model.dto.PartDto;
 import com.deere.model.dto.ProductionDto;
 import com.deere.model.dto.SalesOrderDto;
-import com.deere.model.enums.MRPType;
 
 public class ProductionAction extends BaseAction {
 
@@ -37,7 +36,12 @@ public class ProductionAction extends BaseAction {
 	@Autowired
 	private GenericDao<Inventory> inventoryDao;
 
+	private String dataJson;
 	private String partCode;
+	/**
+	 * 流水单
+	 */
+	private ProductionDetail pDetail;
 
 	private List<ProductionDto> productionList = new ArrayList<ProductionDto>();
 	private List<String> orderNumList = Collections.EMPTY_LIST;
@@ -46,16 +50,12 @@ public class ProductionAction extends BaseAction {
 
 	private String selectedOrder;
 	
-	private String order;
-	
-	
-
-	public String getOrder() {
-		return order;
+	public ProductionDetail getAStatement() {
+		return pDetail;
 	}
 
-	public void setOrder(String order) {
-		this.order = order;
+	public void setAStatement(ProductionDetail statement) {
+		pDetail = statement;
 	}
 
 	public String getSelectedOrder() {
@@ -74,8 +74,23 @@ public class ProductionAction extends BaseAction {
 		this.orderNumList = orderNumList;
 	}
 
-	
-	
+	private String order;
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public String getDataJson() {
+		return dataJson;
+	}
+
+	public void setDataJson(String dataJson) {
+		this.dataJson = dataJson;
+	}
 
 	public List<ProductionDto> getProductionList() {
 		return productionList;
@@ -125,18 +140,18 @@ public class ProductionAction extends BaseAction {
 
 	public String insertProOrder() throws Exception {
 
-		String a = this.getSelectedOrder();
+		String a = this.getOrder();
 		System.out.println(a);
-		List<ProductionDto> proList = Utils.json2Object(jsonData, ProductionDto.class);
-		proService.generatePlan(proList, selectedOrder);
-		return "input";
+		List<ProductionDto> proList = Utils.json2Object(dataJson, ProductionDto.class);
+		proService.generatePlan(proList, order);
+		return SUCCESS;
 	}
 	
 	public String calMRP() throws Exception {
 
 		String a = this.getOrder();
 		System.out.println(a);
-		List<PartDto> dtoList = Utils.json2Object(jsonData, PartDto.class);
+		List<PartDto> dtoList = Utils.json2Object(dataJson, PartDto.class);
 		Map<String, Integer> mrpList = mprService.getMRP(dtoList);
 		Iterator<String> it = mrpList.keySet().iterator();
 		while (it.hasNext()) {
@@ -177,5 +192,13 @@ public class ProductionAction extends BaseAction {
 			this.getOrderList().add(soDto);
 		}
 		return "listOrder";
+	}
+	/**
+	 * 保存流水单据
+	 * @return
+	 */
+	public String addProductionDetail(){
+		proService.addProductionDetail(pDetail);
+		return "";
 	}
 }
