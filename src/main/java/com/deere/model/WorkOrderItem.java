@@ -16,8 +16,8 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-@Table(name="PRODUCTION_DETAIL")
-public class ProductionDetail extends GenericModel {
+@Table(name="WORK_ORDER_ITEM")
+public class WorkOrderItem extends GenericModel {
 	/**
 	 * 流水号
 	 */

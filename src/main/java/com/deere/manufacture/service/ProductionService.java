@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.deere.base.util.StringUtil;
 import com.deere.dao.GenericDao;
 import com.deere.inventory.service.InventoryService;
-import com.deere.model.ProductionDetail;
+import com.deere.model.WorkOrder;
 import com.deere.model.GenericPart;
 import com.deere.model.Inventory;
 import com.deere.model.ProductionOrder;
@@ -39,7 +39,7 @@ public class ProductionService {
 	private GenericDao<ProductionDto> proDtoDao;
 	
 	@Autowired
-	private GenericDao<ProductionDetail> productionDetailDao;
+	private GenericDao<WorkOrder> productionDetailDao;
 	
 	@Autowired
 	private InventoryService invService;
@@ -143,7 +143,7 @@ public class ProductionService {
 	 * 保存工厂的流水单
 	 * @param detail
 	 */
-	public void addProductionDetail(ProductionDetail detail){
+	public void addProductionDetail(WorkOrder detail){
 		productionDetailDao.save(detail);
 	}
 	
