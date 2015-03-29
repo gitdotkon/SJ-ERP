@@ -88,7 +88,7 @@ loadPlan = function() {
 				height : 420,// 高度，表格高度。可为数值、百分比或'auto'
 				width : 600,// 这个宽度不能为百分比
 				autowidth : true,// 自动宽
-				colNames : [ '物料号', '物料名称', '零件类型', '需求数量', '库存数量', '建议数量',
+				colNames : [ '物料号', '物料名称', '零件类型', '需求数量', '在制数量', '占用数量', '库存数量', '建议数量',
 						'投产数量', '自制/外协' ],
 				colModel : [ {
 					name : 'partCode',
@@ -111,6 +111,18 @@ loadPlan = function() {
 				}, {
 					name : 'requiredQty',
 					index : 'requiredQty',
+					sortable : true,
+					width : 120,
+					align : "center"
+				}, {
+					name : 'processingQty',
+					index : 'processingQty',
+					sortable : true,
+					width : 120,
+					align : "center"
+				}, {
+					name : 'reservedQty',
+					index : 'reservedQty',
 					sortable : true,
 					width : 120,
 					align : "center"
@@ -185,10 +197,12 @@ function productionPlan(){
 	//var rowData = $("#partTable").jqGrid("getRowData", grs);//
 
 	createNewFieldToForm("data_form", "jsonData");
+	createNewFieldToForm("data_form", "selectedOrder");
 
 	
 	
 	document.data_form.jsonData.value = JSON.stringify(selObj);
+	document.data_form.selectedOrder.value = $("#orderList").val();
 	document.data_form.action = "productionAction!insertProOrder";
 	document.data_form.method = "post";
 	document.data_form.submit();
@@ -196,22 +210,5 @@ function productionPlan(){
 };
 
 
-generatePlan = function() {
-	var objList = $("#planTable").jqGrid("getRowData");
-	//jsonData = JSON.stringify(jsonData);
-	//createNewFieldToForm("data_form", "order");
-	createNewFieldToForm("data_form", "jsonData");
-	/*
-	 * createNewFieldToForm("data_form", "dataJson");
-	 * 
-	 * var jsonData = $("#proTable").jqGrid("getRowData"); //
-	 * 通过cookie获取的sm_session_cookie stocktake!warehouseEntry
-	 * document.data_form.dataJson.value = JSON.stringify(jsonData);
-	 */
-	// document.stock_form.warehousingDate.value = JSON.stringify(jsonData);
-	document.data_form.jsonData.value = JSON.stringify(objList);
-	document.data_form.action = "productionAction!insertProOrder";
-	document.data_form.method = "post";
-	document.data_form.submit();
-};
+
 

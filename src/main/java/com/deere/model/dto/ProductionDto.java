@@ -1,7 +1,5 @@
 package com.deere.model.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 import com.deere.model.GenericPart;
 
@@ -12,6 +10,8 @@ public class ProductionDto {
 	private Integer requiredQty;
 	private Integer inventoryQty;
 	private Integer recommandedQty;
+	private Integer processingQty;
+	private Integer reservedQty;
 	private Integer actualQty;
 	private Boolean proType =true;
 	
@@ -53,6 +53,20 @@ public class ProductionDto {
 	public void setRecommandedQty(Integer recommandedQty) {
 		this.recommandedQty = recommandedQty;
 	}
+	
+	public Integer getProcessingQty() {
+		return processingQty;
+	}
+	public void setProcessingQty(Integer processingQty) {
+		this.processingQty = processingQty;
+	}
+	
+	public Integer getReservedQty() {
+		return reservedQty;
+	}
+	public void setReservedQty(Integer reservedQty) {
+		this.reservedQty = reservedQty;
+	}
 	public Integer getActualQty() {
 		return actualQty;
 	}
@@ -76,11 +90,13 @@ public class ProductionDto {
 //		this.partType = partType;
 //		this.requiredQty = requiredQty;
 	
-	public ProductionDto( GenericPart part,  Long requiredQty) {
+	public ProductionDto( GenericPart part,  Long requiredQty, Long processingQty,Long reservedQty) {
 		this.partCode = part.getPartCode();
 		this.partName=part.getPartName();
 		this.partType=part.getPartType();
-		this.requiredQty = requiredQty != null ? requiredQty.intValue() : null;
+		this.requiredQty = requiredQty != null ? requiredQty.intValue() : 0;
+		this.processingQty = processingQty != null ? processingQty.intValue() : 0;
+		this.reservedQty=reservedQty != null ? reservedQty.intValue() : 0;
 	}
 	
 	

@@ -68,6 +68,7 @@
 				<value>com.deere.model.MRPModel</value>
 				<value>com.deere.model.ProductionDetail</value>
 				<value>com.deere.model.dto.ProductionDto</value>
+				<value>com.deere.model.dto.PlanDto</value>
 			</list>
 		</property>
 
@@ -155,7 +156,11 @@
 	<bean id="proDtoDao" class="com.deere.dao.impl.GenericDaoHibernateImpl" parent="daoTemplate">
 		<constructor-arg value="com.deere.model.dto.ProductionDto" />
 	</bean>
-	
+	<bean id="planDao" class="com.deere.dao.impl.GenericDaoHibernateImpl" parent="daoTemplate">
+		<constructor-arg value="com.deere.model.dto.PlanDto" />
+	</bean>
+	<bean id="procDao" class="com.deere.dao.impl.ProcedureDaoImpl" parent="daoTemplate">
+	</bean>
 	<bean id="productionDetailDao" class="com.deere.dao.impl.GenericDaoHibernateImpl" parent="daoTemplate">
 		<constructor-arg value="com.deere.model.ProductionDetail" />
 	</bean>

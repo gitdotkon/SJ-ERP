@@ -94,7 +94,7 @@
 		</action>
 
 		<action name="productionAction!*" method="{1}" class="com.deere.manufacture.action.ProductionAction">
-			<result name="input" type ="chain">productionPlan</result>
+			<result name="input" type ="redirectAction">productionPlan</result>
 			<result name="success" type="json">
 				<param name="root">productionList</param>
 			</result>

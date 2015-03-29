@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.deere.dao.GenericDao;
 
@@ -100,7 +102,23 @@ public class GenericDaoHibernateImpl<T> extends HibernateDaoSupport implements G
 
 	}
 	
-	
+
+	@Override
+	@Transactional
+	public List<T> callProcR(String proc, List<String> paras,final Class<T> targetObj) {
+		// TODO Auto-generated method stub
+		Session session = getHibernateTemplate().getSessionFactory().openSession();
+		// Transaction tx = session.beginTransaction();
+		SQLQuery q = session.createSQLQuery("{call " + proc + "(?) }").addEntity(targetObj);
+		if (paras != null) {
+			int i = 0;
+			for (String para : paras) {
+				q.setString(i++, para);
+			}
+		}
+		return q.list();
+
+	}
 
 	@Override
 	public int findCountByCriteria(String criteria) {
