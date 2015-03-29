@@ -36,6 +36,11 @@
 		<action name="mrpAction!*" method="{1}" class="com.deere.manufacture.action.MRPAction">
 			<result name="success" type="chain">productionPlan</result>
 		</action>
+		
+		<action name="workOrderAction!*" method="{1}" class="com.deere.manufacture.action.WorkOrderAction">
+			<result name="listPlanOrder">/manufacture/production-workorder.jsp</result>
+			<result name="addWorkOrderSuccess" type="chain">workOrderAction!listPlanOrder</result>
+		</action>
 
 		<!-- <action name="mprCal" class="com.deere.sales.action.SalesOrderSearchAction" method="mprCal">
 			<result name="success">manufacture/searchorder.jsp</result>

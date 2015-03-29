@@ -18,6 +18,18 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="WORK_ORDER")
 public class WorkOrder extends GenericModel {
+	/*
+	 * 姓名
+	 */
+	private String workerName;
+	/*
+	 * 零件图号
+	 */
+	private String partCode;
+	/*
+	 * 零件名称
+	 */
+	private String partName;
 	/**
 	 * 流水号
 	 */
@@ -27,15 +39,7 @@ public class WorkOrder extends GenericModel {
 	 */
 	private String planOrder;
 	/**
-	 * 记录的物料
-	 */
-	private String item;
-	/**
-	 * 物料与之相关的CODE
-	 */
-	private String code;
-	/**
-	 * 完成的数据
+	 * 完成的数量
 	 */
 	private int finishQty;
 	/**
@@ -56,18 +60,6 @@ public class WorkOrder extends GenericModel {
 	}
 	public void setPlanOrder(String planOrder) {
 		this.planOrder = planOrder;
-	}
-	public String getItem() {
-		return item;
-	}
-	public void setItem(String item) {
-		this.item = item;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
 	}
 	public int getFinishQty() {
 		return finishQty;

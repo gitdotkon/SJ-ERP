@@ -332,6 +332,23 @@ generatePlan = function() {
 /**
  * ‘添加流水’按钮的处理function
  */
-addWorkOrder() = function(){
-}
+addWorkOrder = function(){
+	var objList = $("#proTable").jqGrid("getRowData");
+	//jsonData = JSON.stringify(jsonData);
+	createNewFieldToForm("data_form", "order");
+	createNewFieldToForm("data_form", "dataJson");
+	/*
+	 * createNewFieldToForm("data_form", "dataJson");
+	 * 
+	 * var jsonData = $("#proTable").jqGrid("getRowData"); //
+	 * 通过cookie获取的sm_session_cookie stocktake!warehouseEntry
+	 * document.data_form.dataJson.value = JSON.stringify(jsonData);
+	 */
+	// document.stock_form.warehousingDate.value = JSON.stringify(jsonData);
+	document.data_form.order.value = document.getElementById("orderNum").value;
+	document.data_form.dataJson.value = JSON.stringify(objList);
+	document.data_form.action = "workOrderAction!insertWorkOrder";
+	document.data_form.method = "post";
+	document.data_form.submit();
+};
 

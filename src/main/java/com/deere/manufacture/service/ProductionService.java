@@ -8,16 +8,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.deere.base.util.StringUtil;
 import com.deere.dao.GenericDao;
 import com.deere.inventory.service.InventoryService;
-import com.deere.model.WorkOrder;
-import com.deere.model.MRPModel;
-import com.deere.model.ProductionDetail;
 import com.deere.model.GenericPart;
 import com.deere.model.Inventory;
+import com.deere.model.MRPModel;
 import com.deere.model.ProductionOrder;
 import com.deere.model.ProductionOrderItem;
+import com.deere.model.WorkOrder;
 import com.deere.model.dto.PlanDto;
 import com.deere.model.dto.ProductionDto;
 import com.deere.sales.service.SalesOrderService;
@@ -44,7 +42,7 @@ public class ProductionService {
 	private GenericDao<ProductionDto> proDtoDao;
 
 	@Autowired
-	private GenericDao<WorkOrder> productionDetailDao;
+	private GenericDao<WorkOrder> workOrderDao;
 
 	private GenericDao<MRPModel> MRPDao;
 
@@ -224,7 +222,7 @@ public class ProductionService {
 	 * @param detail
 	 */
 	public void addProductionDetail(WorkOrder detail){
-		productionDetailDao.save(detail);
+		workOrderDao.save(detail);
 	}
 	
 	private Integer getReservedQty(String partCode){
