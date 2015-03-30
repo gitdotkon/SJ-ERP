@@ -30,23 +30,68 @@ public class WorkOrder extends GenericModel {
 	 * 零件名称
 	 */
 	private String partName;
-	/**
-	 * 流水号
+	/*
+	 * 流水号,主键
 	 */
 	private int batchNum;
-	/**
-	 *  与之相关的计划单
+	/*
+	 *  与之相关的生产计划单
 	 */
 	private String planOrder;
-	/**
-	 * 完成的数量
+	/*
+	 * 此工作单完成的数量
 	 */
-	private int finishQty;
-	/**
+	private int quantity;
+	/*
+	 * 此工作单合格的数量
+	 */
+	private int checkOutQty;
+	/*
+	 * 检验员
+	 */
+	private String qualityInspector;
+	/*
+	 * 工作单的状态。
+	 * 此字段用来跟踪工作单的状态，用状态来控制工作单在不同环节的流转，实现工作流的效果。
+	 */
+	private String status;
+	/*
 	 * 流水发生的日期
 	 */
-	private Date date = new Date();
+	private Date workOrderDate = new Date();
 
+	public String getWorkerName() {
+		return workerName;
+	}
+	public void setWorkerName(String workerName) {
+		this.workerName = workerName;
+	}
+	public String getPartCode() {
+		return partCode;
+	}
+	public void setPartCode(String partCode) {
+		this.partCode = partCode;
+	}
+	public String getPartName() {
+		return partName;
+	}
+	public void setPartName(String partName) {
+		this.partName = partName;
+	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	public int getCheckOutQty() {
+		return checkOutQty;
+	}
+	public void setCheckOutQty(int checkOutQty) {
+		this.checkOutQty = checkOutQty;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getBatchNum() {
@@ -61,19 +106,26 @@ public class WorkOrder extends GenericModel {
 	public void setPlanOrder(String planOrder) {
 		this.planOrder = planOrder;
 	}
-	public int getFinishQty() {
-		return finishQty;
-	}
-	public void setFinishQty(int finishQty) {
-		this.finishQty = finishQty;
-	}
 	@Temporal(TemporalType.TIMESTAMP)  
 	@Column(updatable=false)
-	public Date getDate() {
-		return date;
+	public Date getWorkOrderDate() {
+		return workOrderDate;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setWorkOrderDate(Date workOrderDate) {
+		this.workOrderDate = workOrderDate;
+	}
+	public String getQualityInspector() {
+		return qualityInspector;
+	}
+	public void setQualityInspector(String qualityInspector) {
+		this.qualityInspector = qualityInspector;
+	}
+	@Column(name="STATUS" ,nullable=true,columnDefinition="VARCHAR(15) default 'NEW'")
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

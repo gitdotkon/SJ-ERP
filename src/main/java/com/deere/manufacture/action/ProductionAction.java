@@ -193,12 +193,4 @@ public class ProductionAction extends BaseAction {
 		}
 		return "listOrder";
 	}
-	/**
-	 * 保存流水单据
-	 * @return
-	 */
-	public String addProductionDetail(){
-		proService.addProductionDetail(pDetail);
-		return "";
-	}
 }

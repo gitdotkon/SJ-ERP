@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.deere.dao.GenericDao;
 import com.deere.model.WorkOrder;
+import com.deere.model.enums.WorkOrderStatus;
 
 /**
  * 
@@ -32,8 +33,17 @@ public class WorkOrderService {
 	 */
 	public void insertWorkOrder(List<WorkOrder> workOrders){
 		for(WorkOrder workOrder :workOrders){
+			workOrder.setStatus(WorkOrderStatus.NEW.toString());
 			workOrderDao.merge(workOrder);
 		}
+	}
+	/**
+	 * 查询所有的工作单
+	 * @param workOrder
+	 * @return
+	 */
+	public List<WorkOrder> getAllWorkOrder(WorkOrder workOrder){
+		return workOrderDao.findAll();
 	}
 
 }

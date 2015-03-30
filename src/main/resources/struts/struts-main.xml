@@ -39,6 +39,10 @@
 		
 		<action name="workOrderAction!*" method="{1}" class="com.deere.manufacture.action.WorkOrderAction">
 			<result name="listPlanOrder">/manufacture/production-workorder.jsp</result>
+			<result name="toWorkOrder">/manufacture/workorders.jsp</result>
+			<result name="listWorkOrder" type="json">
+				<param name="root">workOrders</param>
+			</result>
 			<result name="addWorkOrderSuccess" type="chain">workOrderAction!listPlanOrder</result>
 		</action>
 

@@ -31,7 +31,7 @@
 <hr>
 <div align="right" style="float: right;width: 50%">
       	<span style=" margin-left: 5px;" ><a href="workOrderAction!listPlanOrder">创建工作单</a></span>|
-    	<span style=" margin-left: 5px;"><a href="salesOrderAction!execute">编辑工作单</a></span>|
+    	<span style=" margin-left: 5px;"><a href="workOrderAction!toWorkOrder">编辑工作单</a></span>|
     	<span style=" margin-left: 5px;"><a href="reportInventory.html">当月库存报告</a></span> 
     	</div> 
 		<br>
